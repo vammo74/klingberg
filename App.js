@@ -28,7 +28,6 @@ const App = () => {
         onUpdateLevel={updateLevelHandler}
         onChangeLevel={flag => changeLevelHandler(flag)}
       />
-      <StatusBar style="auto" />
     </SafeAreaView>
   );
 };
