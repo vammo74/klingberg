@@ -1,4 +1,2 @@
 # Klingberg
-# Multipliction training
-# app for primary school
-# age children.
+Multipliction training app for primary school age children.
