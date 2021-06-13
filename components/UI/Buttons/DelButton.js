@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     backgroundColor: "#790606",
-    flex: 0.94,
+    flex: 0.95,
     marginBottom: "1%",
     marginLeft: "1%",
     marginRight: "1%",

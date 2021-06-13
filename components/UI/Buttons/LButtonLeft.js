@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginBottom: "1%",
     marginLeft: "1%",
-    marginRight: "-10%",
+    marginRight: "-6.5%",
     marginTop: "1%",
     justifyContent: "center",
     borderTopLeftRadius: 9,

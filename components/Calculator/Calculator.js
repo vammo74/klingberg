@@ -8,7 +8,7 @@ import Timer from "./Timer";
 
 const Calculator = (props) => {
   const [savedStats, setSavedStats] = useState(
-    '{"level":4,"product":"","products":["5 ✕ 9","5 ✕ 8","4 ✕ 7","2 ✕ 2","2 ✕ 3","2 ✕ 4","2 ✕ 5","2 ✕ 6","2 ✕ 7","2 ✕ 8","2 ✕ 9","2 ✕ 10","3 ✕ 3","3 ✕ 4","3 ✕ 5","3 ✕ 6","3 ✕ 7","3 ✕ 8","3 ✕ 9","4 ✕ 4","4 ✕ 5","4 ✕ 6","4 ✕ 8","4 ✕ 9","4 ✕ 10","5 ✕ 5","5 ✕ 6","5 ✕ 7","5 ✕ 10","6 ✕ 6","6 ✕ 7","6 ✕ 8","6 ✕ 9","6 ✕ 10","7 ✕ 7","7 ✕ 8","7 ✕ 9","7 ✕ 10","8 ✕ 8","8 ✕ 9","8 ✕ 10","9 ✕ 9","9 ✕ 10","10 ✕ 10"],"levelAttempts":true}'
+    '{"level":4,"product":"","products":["5 × 9","5 × 8","4 × 7","2 × 2","2 × 3","2 × 4","2 × 5","2 × 6","2 × 7","2 × 8","2 × 9","2 × 10","3 × 3","3 × 4","3 × 5","3 × 6","3 × 7","3 × 8","3 × 9","4 × 4","4 × 5","4 × 6","4 × 8","4 × 9","4 × 10","5 × 5","5 × 6","5 × 7","5 × 10","6 × 6","6 × 7","6 × 8","6 × 9","6 × 10","7 × 7","7 × 8","7 × 9","7 × 10","8 × 8","8 × 9","8 × 10","9 × 9","9 × 10","10 × 10"],"levelAttempts":true}'
   );
   const [levelAttempts, setLevelAttempts] = useState(true);
   const [started, setStarted] = useState(false);
@@ -76,10 +76,10 @@ const Calculator = (props) => {
     for (let n = 2; n < 11; n++) {
       for (let m = 2; m < 11; m++) {
         if (
-          !newProducts.includes(n + " ✕ " + m) &&
-          !newProducts.includes(m + " ✕ " + n)
+          !newProducts.includes(n + " × " + m) &&
+          !newProducts.includes(m + " × " + n)
         ) {
-          newProducts.push(n + " ✕ " + m);
+          newProducts.push(n + " × " + m);
         }
       }
     }
@@ -123,7 +123,7 @@ const Calculator = (props) => {
   };
 
   const checkProductHandler = (answer) => {
-    const numbers = product.split(" ✕ ");
+    const numbers = product.split(" × ");
     const result = parseInt(numbers[0]) * parseInt(numbers[1]);
     if (parseInt(answer) === result) {
       setDigits("");

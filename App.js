@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, SafeAreaView, StatusBar } from 'react-native';
+import { StyleSheet, View, Text, SafeAreaView, StatusBar, Modal } from 'react-native';
 import Calculator from "./components/Calculator/Calculator";
 import Table from "./components/Table/Table";
 import InfoButton from "./components/UI/Buttons/InfoButton";
@@ -8,7 +8,7 @@ import PopUp from "./components/UI/PopUp/PopUp";
 
 const App = () => {
   const [level, setLevel] = useState(3);
-  const [popupped, setPopupped] = useState(true);
+  const [popupped, setPopupped] = useState(false);
 
   const changeLevelHandler = (flag) => {
     if (flag === "up" && level <= 10) {
@@ -52,25 +52,23 @@ const App = () => {
 
 
 
-  const popUpHandler = () => {
-    console.log('pressed')
-    console.log(popUpStyles.popup)
+  const popupOpenHandler = () => {
     setPopupped(true);
   };
 
-  const popUpCancelerHandler = () => {
-    console.log("pressed");
-    console.log(popUpStyles);
+  const popupCloseHandler = () => {
+    console.log("pressed")
     setPopupped(false);
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <PopUp popupped={popupped} closePopup={popUpCancelerHandler} />
+      <PopUp popupped={popupped} closePopup={popupCloseHandler} />
+      <Modal>
       <View style={styles.game}>
-        <View style={{ flexDirection: "row", alignContent: "center" }}>
-          <Text style={styles.text}>Multiplikation Övning</Text>
-          <InfoButton title="i" onPress={popUpHandler} />
+        <View style={styles.header}>
+          <View style={styles.title}><Text style={styles.text}>Multiplikation Övning</Text></View>
+          <InfoButton title="i" onPress={popupOpenHandler} />
         </View>
         <Table level={level} />
         <Calculator
@@ -78,7 +76,8 @@ const App = () => {
           onUpdateLevel={updateLevelHandler}
           onChangeLevel={(flag) => changeLevelHandler(flag)}
         />
-      </View>
+        </View>
+      </Modal>
       <StatusBar style="auto" />
     </SafeAreaView>
   );
@@ -99,7 +98,26 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     margin: 0,
   },
+  header: {
+    flexDirection: "row",
+    alignContent: "center",
+    justifyContent: "center",
+    alignSelf: "center"
+  },
+  title: {
+    flex: 5,
+    borderColor: "black",
+    borderWidth: 1,
+    borderStyle: "solid",
+    backgroundColor: "#ccc",
+    margin: "2%",
+    marginLeft: "6%",
+    elevation: 5,
+    
+
+  },
   text: {
+    textAlign: "center",
     color: "black",
     fontSize: 25,
     margin: "3%",

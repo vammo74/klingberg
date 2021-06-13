@@ -95,6 +95,7 @@ const styles = StyleSheet.create({
       },
     ],
     textAlign: "left",
+    marginTop: 3,
     fontSize: 30,
     color: "white",
   },
