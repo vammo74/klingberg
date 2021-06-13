@@ -8,6 +8,7 @@ const Timer = (props) => {
   const timer = useRef();
   const [timerHeight, setTimerHeight] = useState(0);
   const [timerState, setTimerState] = useState(true);
+  const [timerRate, setTimerRate] = useState(5);
 
   useEffect(() => {
     if (props.timerFlag === "start") {
@@ -25,6 +26,10 @@ const Timer = (props) => {
     }
   }, [props.timerFlag]);
 
+  useEffect(() => {
+    setTimerRate(props.timerRate);
+  }, [props.timerRate]);
+
   useInterval(() => {
     if (timerState) {
       if (timerHeight <= 100) {
@@ -35,7 +40,7 @@ const Timer = (props) => {
         setTimerState(false);
       }
     }
-  }, 10 * (101 - props.level ** 2));
+  }, 2 * (10 - timerRate) * (101 - props.level ** 2));
 
   colorModifier = timerHeight;
   if (colorModifier <= 0) {
@@ -53,32 +58,29 @@ const Timer = (props) => {
     },
   });
 
-  const timerResetStyles = StyleSheet.create({
-    timerReset: {
-      backgroundColor: "red",
-    },
-  });
-
   return (
-    <View style={styles.timer}>
-      <View
-        style={
-          timerState !== "stop"
-            ? timerFillStyles.timerFill
-            : timerResetStyles.timerReset
-        }
-        ref={timer}
-      ></View>
+    <View style={styles.container}>
+      <View style={styles.timer}>
+        <View style={timerFillStyles.timerFill} ref={timer}></View>
+      </View>
     </View>
   );
 };
 const styles = StyleSheet.create({
-  timer: {
+  container: {
+    flex: 1,
+    flexDirection: "column",
+    alignContent: "flex-end",
     marginLeft: "2%",
     marginRight: "2%",
+    elevation: 5,
+  },
+  timer: {
+    width: "90%",
     borderColor: "black",
     borderStyle: "solid",
     borderWidth: 1,
+    backgroundColor: "#dae0db",
     flex: 1,
     flexDirection: "column",
     justifyContent: "flex-end",

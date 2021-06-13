@@ -1,28 +1,29 @@
-import React, {useState, useEffect, useRef} from 'react';
-import {StyleSheet, View, AppState} from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import NumberPad from './NumberPad';
-import Screen from './Screen';
-import ScoreTracker from './ScoreTracker';
-import Timer from './Timer';
+import React, { useState, useEffect, useRef } from "react";
+import { StyleSheet, View, AppState } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import NumberPad from "./NumberPad";
+import Screen from "./Screen";
+import ScoreTracker from "./ScoreTracker";
+import Timer from "./Timer";
 
-const Calculator = props => {
+const Calculator = (props) => {
   const [savedStats, setSavedStats] = useState(
-    '{"level":4,"product":"","products":["5 ✕ 9","5 ✕ 8","4 ✕ 7","2 ✕ 2","2 ✕ 3","2 ✕ 4","2 ✕ 5","2 ✕ 6","2 ✕ 7","2 ✕ 8","2 ✕ 9","2 ✕ 10","3 ✕ 3","3 ✕ 4","3 ✕ 5","3 ✕ 6","3 ✕ 7","3 ✕ 8","3 ✕ 9","4 ✕ 4","4 ✕ 5","4 ✕ 6","4 ✕ 8","4 ✕ 9","4 ✕ 10","5 ✕ 5","5 ✕ 6","5 ✕ 7","5 ✕ 10","6 ✕ 6","6 ✕ 7","6 ✕ 8","6 ✕ 9","6 ✕ 10","7 ✕ 7","7 ✕ 8","7 ✕ 9","7 ✕ 10","8 ✕ 8","8 ✕ 9","8 ✕ 10","9 ✕ 9","9 ✕ 10","10 ✕ 10"],"levelAttempts":true}',
+    '{"level":4,"product":"","products":["5 ✕ 9","5 ✕ 8","4 ✕ 7","2 ✕ 2","2 ✕ 3","2 ✕ 4","2 ✕ 5","2 ✕ 6","2 ✕ 7","2 ✕ 8","2 ✕ 9","2 ✕ 10","3 ✕ 3","3 ✕ 4","3 ✕ 5","3 ✕ 6","3 ✕ 7","3 ✕ 8","3 ✕ 9","4 ✕ 4","4 ✕ 5","4 ✕ 6","4 ✕ 8","4 ✕ 9","4 ✕ 10","5 ✕ 5","5 ✕ 6","5 ✕ 7","5 ✕ 10","6 ✕ 6","6 ✕ 7","6 ✕ 8","6 ✕ 9","6 ✕ 10","7 ✕ 7","7 ✕ 8","7 ✕ 9","7 ✕ 10","8 ✕ 8","8 ✕ 9","8 ✕ 10","9 ✕ 9","9 ✕ 10","10 ✕ 10"],"levelAttempts":true}'
   );
   const [levelAttempts, setLevelAttempts] = useState(true);
   const [started, setStarted] = useState(false);
-  const [product, setProduct] = useState('');
+  const [product, setProduct] = useState("");
   const [products, setProducts] = useState([]);
-  const [digits, setDigits] = useState('');
-  const [timerFlag, setTimerFlag] = useState('stop');
+  const [digits, setDigits] = useState("");
+  const [timerFlag, setTimerFlag] = useState("stop");
+  const [timerRate, setTimerRate] = useState(5);
 
   const scoreTrackerRef = useRef();
   const screenRef = useRef();
 
-  const saveStats = async value => {
+  const saveStats = async (value) => {
     try {
-      await AsyncStorage.setItem('@storage_Key', value);
+      await AsyncStorage.setItem("@storage_Key", value);
     } catch (e) {
       // saving error
     }
@@ -30,7 +31,7 @@ const Calculator = props => {
 
   const loadStats = async () => {
     try {
-      const value = await AsyncStorage.getItem('@storage_Key');
+      const value = await AsyncStorage.getItem("@storage_Key");
       if (value !== null) {
         setSavedStats(value);
       }
@@ -39,14 +40,14 @@ const Calculator = props => {
     }
   };
 
-  const _handleAppStateChange = nextAppState => {
-    if (nextAppState === 'background' || nextAppState === 'inactive') {
+  const _handleAppStateChange = (nextAppState) => {
+    if (nextAppState === "background" || nextAppState === "inactive") {
       saveStats(savedStats);
     }
   };
 
   useEffect(() => {
-    AppState.addEventListener('change', _handleAppStateChange);
+    AppState.addEventListener("change", _handleAppStateChange);
     loadStats();
     let statsJson = JSON.parse(savedStats);
     setProduct(statsJson.product);
@@ -55,9 +56,9 @@ const Calculator = props => {
     props.onUpdateLevel(statsJson.level);
 
     return () => {
-      AppState.removeEventListener('change', _handleAppStateChange);
+      AppState.removeEventListener("change", _handleAppStateChange);
     };
-  });
+  }, []);
 
   useEffect(() => {
     let statsJson = {
@@ -68,17 +69,17 @@ const Calculator = props => {
     };
     let stats = JSON.stringify(statsJson);
     setSavedStats(stats);
-  }, [props.level, product, products, levelAttempts]);
+  }, [props.level, product, products]);
 
   const generateProducts = () => {
     const newProducts = [];
     for (let n = 2; n < 11; n++) {
       for (let m = 2; m < 11; m++) {
         if (
-          !newProducts.includes(n + ' ✕ ' + m) &&
-          !newProducts.includes(m + ' ✕ ' + n)
+          !newProducts.includes(n + " ✕ " + m) &&
+          !newProducts.includes(m + " ✕ " + n)
         ) {
-          newProducts.push(n + ' ✕ ' + m);
+          newProducts.push(n + " ✕ " + m);
         }
       }
     }
@@ -89,12 +90,12 @@ const Calculator = props => {
     let productsArray = [...products];
     if (productsArray.length < 1) {
       productsArray = generateProducts();
-      props.onChangeLevel('up');
+      props.onChangeLevel("up");
     }
     if (productsArray.length >= 50) {
       productsArray = generateProducts();
 
-      props.onChangeLevel('down');
+      props.onChangeLevel("down");
     }
     const randomIndex = Math.floor(Math.random() * productsArray.length);
     const newProduct = productsArray.splice(randomIndex, 1);
@@ -105,60 +106,60 @@ const Calculator = props => {
   const startHandler = () => {
     if (!started) {
       setStarted(true);
-      setTimerFlag('start');
+      setTimerFlag("start");
       generateProduct();
-      screenRef.current.changeTextColor('black');
+      screenRef.current.changeTextColor("black");
     }
   };
 
   const stopHandler = () => {
     if (started) {
-      setDigits('');
+      setDigits("");
       setProducts([product, ...products]);
-      screenRef.current.changeTextColor('transparent');
+      screenRef.current.changeTextColor("transparent");
       setStarted(false);
-      setTimerFlag('stop');
+      setTimerFlag("stop");
     }
   };
 
-  const checkProductHandler = answer => {
-    const numbers = product.split(' ✕ ');
-    const result = parseInt(numbers[0], 10) * parseInt(numbers[1], 10);
-    if (parseInt(answer, 10) === result) {
-      setDigits('');
-      screenRef.current.changeInputColor('#79e36d');
+  const checkProductHandler = (answer) => {
+    const numbers = product.split(" ✕ ");
+    const result = parseInt(numbers[0]) * parseInt(numbers[1]);
+    if (parseInt(answer) === result) {
+      setDigits("");
+      screenRef.current.changeInputColor("#79e36d");
       setTimeout(() => {
-        screenRef.current.changeInputColor('#ccd4cb');
+        screenRef.current.changeInputColor("#ccd4cb");
       }, 250);
       generateProduct();
-      if (timerFlag === 'reset-on') {
-        setTimerFlag('reset-off');
+      if (timerFlag === "reset-on") {
+        setTimerFlag("reset-off");
       } else {
-        setTimerFlag('reset-on');
+        setTimerFlag("reset-on");
       }
     } else {
-      screenRef.current.changeInputColor('#f75252');
+      screenRef.current.changeInputColor("#f75252");
       setProducts([product, ...products]);
       if (products.length >= 50) {
         generateProduct();
       }
-      if (timerFlag === 'reset-on') {
-        setTimerFlag('reset-off');
+      if (timerFlag === "reset-on") {
+        setTimerFlag("reset-off");
       } else {
-        setTimerFlag('reset-on');
+        setTimerFlag("reset-on");
       }
       setTimeout(() => {
-        screenRef.current.changeInputColor('#ccd4cb');
-        setDigits('');
+        screenRef.current.changeInputColor("#ccd4cb");
+        setDigits("");
       }, 250);
     }
   };
 
   const deleteHandler = () => {
     if (digits.length > 0 && started) {
-      setDigits(prevDigits => prevDigits.slice(0, -1));
+      setDigits((prevDigits) => prevDigits.slice(0, -1));
     } else {
-      setDigits('');
+      setDigits("");
     }
   };
 
@@ -167,36 +168,40 @@ const Calculator = props => {
       checkProductHandler(digits);
       setStarted(true);
     }
-    if (digits.length === 3 && !started && digits.slice(0, 2) === '13') {
+    if (digits.length === 3 && !started && digits.slice(0, 2) === "13") {
       props.onUpdateLevel(digits[2]);
       setProducts(generateProducts());
-      setDigits('');
+      setDigits("");
+    }
+    if (digits.length === 3 && !started && digits.slice(0, 2) === "77") {
+      setTimerRate(digits[2]);
+      setDigits("");
     }
     if (!started) {
-      setDigits('');
+      setDigits("");
     }
   };
 
-  const enteredDigitsHandler = newDigit => {
+  const enteredDigitsHandler = (newDigit) => {
     if (digits.length < 3) {
-      setDigits(prevDigits => prevDigits + newDigit);
+      setDigits((prevDigits) => prevDigits + newDigit);
     }
   };
 
   useEffect(() => {
-    let barFillHeight = Math.round((products.length / 50) * 85) + '%';
+    let barFillHeight = Math.round((products.length / 50) * 85) + "%";
     let warningLevel = products.length;
     if (warningLevel === 44) {
-      scoreTrackerRef.current.changeTrackerColor('#4da6ff');
+      scoreTrackerRef.current.changeTrackerColor("#4da6ff");
     }
     if (warningLevel === 47) {
-      scoreTrackerRef.current.changeTrackerColor('#cc99ff');
+      scoreTrackerRef.current.changeTrackerColor("#cc99ff");
     }
     if (warningLevel === 48) {
-      scoreTrackerRef.current.changeTrackerColor('#ff9980');
+      scoreTrackerRef.current.changeTrackerColor("#ff9980");
     }
     if (warningLevel === 49) {
-      scoreTrackerRef.current.changeTrackerColor('#ff3333');
+      scoreTrackerRef.current.changeTrackerColor("#ff3333");
     }
 
     scoreTrackerRef.current.changeHeight(barFillHeight.toString());
@@ -207,7 +212,7 @@ const Calculator = props => {
       setLevelAttempts(false);
     } else {
       setLevelAttempts(true);
-      props.onChangeLevel('down');
+      props.onChangeLevel("down");
     }
   };
 
@@ -225,6 +230,7 @@ const Calculator = props => {
           timerFlag={timerFlag}
           level={props.level}
           onOutOfTime={outOfTimeHandler}
+          timerRate={timerRate}
         />
         <NumberPad
           style={styles.numberPad}
@@ -244,18 +250,21 @@ const Calculator = props => {
 const styles = StyleSheet.create({
   calculator: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '50%',
+    backgroundColor: "#8d8e96",
+    alignItems: "center",
+    justifyContent: "center",
+    height: "47%",
+
+    width: "90%",
+    marginBottom: "3%",
   },
   calculatorBody: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   start: {
     flex: 0.3,
-    flexDirection: 'column',
+    flexDirection: "column",
   },
 });
 

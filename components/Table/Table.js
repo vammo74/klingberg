@@ -226,15 +226,14 @@ const styles = StyleSheet.create({
   tableBody: {
     flex: 1,
     flexDirection: "column",
-    backgroundColor: "#fff",
     height: "50%",
-    width: "100%",
+    width: "90%",
+    elevation: 5,
   },
   tableRow: {
     alignSelf: "flex-start",
     flex: 1,
     flexDirection: "row",
-    backgroundColor: "#fff",
     width: "100%",
   },
   buttonBody: {

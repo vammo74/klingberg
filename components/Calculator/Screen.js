@@ -22,6 +22,7 @@ class Screen extends Component {
         borderWidth: 1,
         borderColor: "black",
         margin: "2%",
+        elevation: 5,
       },
     });
 
@@ -56,6 +57,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "black",
     margin: "2%",
+    elevation: 5,
   },
   productScreen: {
     flex: 1,
@@ -64,6 +66,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "black",
     margin: "2%",
+    elevation: 5,
   },
   text: {
     textAlign: "center",
