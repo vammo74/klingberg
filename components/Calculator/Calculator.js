@@ -169,12 +169,12 @@ const Calculator = (props) => {
       checkProductHandler(digits);
       setStarted(true);
     }
-    if (digits.length === 3 && !started && digits.slice(0, 2) === "13") {
+    if (digits.length === 3 && !started && digits.slice(0, 2) === "13" && digits[2] !== "0") {
       props.onUpdateLevel(digits[2]);
       setProducts(generateProducts());
       setDigits("");
     }
-    if (digits.length === 3 && !started && digits.slice(0, 2) === "77") {
+    if (digits.length === 3 && !started && digits.slice(0, 2) === "77" && digits[2] !== "0") {
       setTimerRate(digits[2]);
       setDigits("");
     }
