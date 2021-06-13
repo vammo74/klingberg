@@ -5,42 +5,50 @@ class IButtonTop extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      buttonMarginTop: "9%",
+      buttonMarginTop: "5%",
       buttonMarginBottom: "-1%",
-      buttonMarginRight: "9%",
+      buttonMarginRight: "5%",
       buttonColor: "#5f785d",
     };
     this.pressOutHandler = () => {
       if (this.props.started) {
-        this.setState({
-          buttonMarginTop: "5%",
-          buttonMarginRight: "5%",
-          buttonMarginBottom: "-1%",
-          buttonColor: "#664040",
+        this.setState(() => {
+          return {
+            buttonMarginTop: "5%",
+            buttonMarginRight: "5%",
+            buttonMarginBottom: "-1%",
+            buttonColor: "#664040",
+          }
         });
       } else {
-        this.setState({
-          buttonMarginTop: "9%",
-          buttonMarginRight: "9%",
-          buttonMarginBottom: "-1%",
-          buttonColor: "#5f785d",
+        this.setState(() => {
+          return {
+            buttonMarginTop: "5%",
+            buttonMarginRight: "5%",
+            buttonMarginBottom: "-1%",
+            buttonColor: "#5f785d",
+          }
         });
       }
     };
     this.pressInHandler = () => {
       if (this.props.started) {
-        this.setState({
-          buttonMarginTop: 0,
-          buttonMarginBottom: "-1%",
-          buttonMarginRight: 0,
-          buttonColor: "#664040",
+        this.setState(() => {
+          return {
+            buttonMarginTop: 0,
+            buttonMarginBottom: "-1%",
+            buttonMarginRight: 0,
+            buttonColor: "#664040",
+          }
         });
       } else {
-        this.setState({
-          buttonMarginTop: 0,
-          buttonMarginBottom: "-1%",
-          buttonMarginRight: 0,
-          buttonColor: "#4f654e",
+        this.setState(() => {
+          return {
+            buttonMarginTop: 0,
+            buttonMarginBottom: "-1%",
+            buttonMarginRight: 0,
+            buttonColor: "#4f654e",
+          }
         });
       }
     };

@@ -158,7 +158,7 @@ const Table = (props) => {
 
   useEffect(() => {
     tableLevel(props.level);
-  }, [props.level]);
+  }, [props.level, props.popupped]);
 
   return (
     <View className="tableBody" style={styles.tableBody}>

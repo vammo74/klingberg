@@ -105,6 +105,7 @@ const Calculator = (props) => {
 
   const startHandler = () => {
     if (!started) {
+      setDigits("");
       setStarted(true);
       setTimerFlag("start");
       generateProduct();

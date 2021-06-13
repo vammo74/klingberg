@@ -70,7 +70,7 @@ const App = () => {
           <View style={styles.title}><Text style={styles.text}>Multiplikation Övning</Text></View>
           <InfoButton title="i" onPress={popupOpenHandler} />
         </View>
-        <Table level={level} />
+        <Table level={level} popupped={popupped}/>
         <Calculator
           level={level}
           onUpdateLevel={updateLevelHandler}

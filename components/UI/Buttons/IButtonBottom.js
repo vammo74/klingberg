@@ -5,32 +5,40 @@ class IButtonBottom extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      buttonMarginRight: "9%",
+      buttonMarginRight: "5%",
       buttonColor: "#5f785d",
     };
     this.pressOutHandler = () => {
       if (this.props.started) {
-        this.setState({
-          buttonMarginRight: "5%",
-          buttonColor: "#664040",
+        this.setState(() => {
+          return {
+            buttonMarginRight: "5%",
+            buttonColor: "#664040",
+          }
         });
       } else {
-        this.setState({
-          buttonMarginRight: "9%",
-          buttonColor: "#5f785d",
+        this.setState(() => {
+          return {
+            buttonMarginRight: "5%",
+            buttonColor: "#5f785d",
+          }
         });
       }
     };
     this.pressInHandler = () => {
       if (this.props.started) {
-        this.setState({
-          buttonMarginRight: "5%",
-          buttonColor: "#664040",
+        this.setState(() => {
+          return {
+            buttonMarginRight: "5%",
+            buttonColor: "#664040",
+          }
         });
       } else {
-        this.setState({
-          buttonMarginRight: 0,
-          buttonColor: "#4f654e",
+        this.setState(() => {
+          return {
+            buttonMarginRight: 0,
+            buttonColor: "#4f654e",
+          }
         });
       }
     };
