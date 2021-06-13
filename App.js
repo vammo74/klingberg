@@ -1,9 +1,10 @@
-import React, {useEffect, useState} from 'react';
-import {StyleSheet, View, Text, SafeAreaView, StatusBar, Button, Pressable} from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View, Text, SafeAreaView, StatusBar } from 'react-native';
 import Calculator from "./components/Calculator/Calculator";
 import Table from "./components/Table/Table";
 import InfoButton from "./components/UI/Buttons/InfoButton";
 import PopUp from "./components/UI/PopUp/PopUp";
+
 
 const App = () => {
   const [level, setLevel] = useState(3);
@@ -32,7 +33,7 @@ const App = () => {
       bottom: 0,
       right: 0,
       left: 0,
-      
+
     },
     underlay: {
       flex: 1,
@@ -48,9 +49,9 @@ const App = () => {
       backgroundColor: "black",
     },
   });
-  
-  
-  
+
+
+
   const popUpHandler = () => {
     console.log('pressed')
     console.log(popUpStyles.popup)
@@ -65,14 +66,7 @@ const App = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {popupped && (
-        
-        
-      <View style={popUpStyles.popup} >
-        <PopUp onClose={popUpCancelerHandler} />
-        <Button onpress={popUpCancelerHandler} title="Close"/>
-      </View>)}
-      
+      <PopUp popupped={popupped} closePopup={popUpCancelerHandler} />
       <View style={styles.game}>
         <View style={{ flexDirection: "row", alignContent: "center" }}>
           <Text style={styles.text}>Multiplikation Övning</Text>
@@ -94,7 +88,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  
+
   game: {
     flex: 1,
     flexDirection: "column",
