@@ -6,6 +6,7 @@ import {
   Button,
   ScrollView,
   Pressable,
+  TouchableOpacity,
 } from "react-native";
 
 import ButtonPicture from "./ButtonPicture";
@@ -15,7 +16,7 @@ import ScreenPicture from "./ScreenPicture";
 const PopUp = (props) => {
   return (
     <View style={styles.container}>
-      <Pressable style={styles.overlay} onPress={props.onClose} />
+      
       <View style={styles.window}>
         <ScrollView style={styles.scrollView}>
           <Text style={styles.h1}>Multiplikation Övningar:</Text>
@@ -53,7 +54,7 @@ const PopUp = (props) => {
           </Text>
           <ButtonPicture combo="774" />
         </ScrollView>
-        <Button title="Close" onPress={props.onClose} />
+        <Pressable onPress={props.onClose}><Text>Close</Text></Pressable>
       </View>
     </View>
   );
@@ -78,7 +79,7 @@ const styles = StyleSheet.create({
   scrollView: {
     margin: "5%",
   },
-  overlay: {
+  /* overlay: {
     position: "absolute",
     top: 0,
     bottom: 0,
@@ -86,7 +87,7 @@ const styles = StyleSheet.create({
     left: 0,
     opacity: 0.5,
     backgroundColor: "#000",
-  },
+  }, */
   h1: {
     color: "#19386b",
     fontSize: 25,

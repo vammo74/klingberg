@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, View, Text, SafeAreaView, StatusBar} from 'react-native';
+import {StyleSheet, View, Text, SafeAreaView, StatusBar, Button, Pressable} from 'react-native';
 import Calculator from "./components/Calculator/Calculator";
 import Table from "./components/Table/Table";
 import InfoButton from "./components/UI/Buttons/InfoButton";
@@ -7,7 +7,7 @@ import PopUp from "./components/UI/PopUp/PopUp";
 
 const App = () => {
   const [level, setLevel] = useState(3);
-  const [zindex, setZindex] = useState(1);
+  const [popupped, setPopupped] = useState(true);
 
   const changeLevelHandler = (flag) => {
     if (flag === "up" && level <= 10) {
@@ -23,6 +23,7 @@ const App = () => {
 
   const popUpStyles = StyleSheet.create({
     popup: {
+      flex: 1,
       position: "absolute",
       flexDirection: "column",
       justifyContent: "center",
@@ -31,28 +32,47 @@ const App = () => {
       bottom: 0,
       right: 0,
       left: 0,
-      backgroundColor: "transparent",
-      zIndex: zindex,
+      
+    },
+    underlay: {
+      flex: 1,
+      position: "absolute",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignContent: "center",
+      top: 0,
+      bottom: 0,
+      right: 0,
+      left: 0,
+      opacity: 0.5,
+      backgroundColor: "black",
     },
   });
   
   
   
   const popUpHandler = () => {
-    setZindex(1);
+    console.log('pressed')
+    console.log(popUpStyles.popup)
+    setPopupped(true);
   };
 
   const popUpCancelerHandler = () => {
     console.log("pressed");
     console.log(popUpStyles);
-    setZindex(-1);
+    setPopupped(false);
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={popUpStyles.popup}>
+      {popupped && (
+        
+        
+      <View style={popUpStyles.popup} >
         <PopUp onClose={popUpCancelerHandler} />
-      </View>
+        <Button onpress={popUpCancelerHandler} title="Close"/>
+      </View>)}
+      
       <View style={styles.game}>
         <View style={{ flexDirection: "row", alignContent: "center" }}>
           <Text style={styles.text}>Multiplikation Övning</Text>
