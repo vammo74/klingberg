@@ -1,15 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
-import { StyleSheet, View, Button, AppState } from "react-native";
+import { StyleSheet, View, AppState } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import NumberPad from "./NumberPad";
 import Screen from "./Screen";
 import ScoreTracker from "./ScoreTracker";
 import Timer from "./Timer";
 
-const STORAGE_KEY = '@save_stats'
-
 const Calculator = (props) => {
-  console.log("remount")
   const [savedStats, setSavedStats] = useState(
     '{"level":4,"product":"","products":["5 × 9","5 × 8","4 × 7","2 × 2","2 × 3","2 × 4","2 × 5","2 × 6","2 × 7","2 × 8","2 × 9","2 × 10","3 × 3","3 × 4","3 × 5","3 × 6","3 × 7","3 × 8","3 × 9","4 × 4","4 × 5","4 × 6","4 × 8","4 × 9","4 × 10","5 × 5","5 × 6","5 × 7","5 × 10","6 × 6","6 × 7","6 × 8","6 × 9","6 × 10","7 × 7","7 × 8","7 × 9","7 × 10","8 × 8","8 × 9","8 × 10","9 × 9","9 × 10","10 × 10"],"levelAttempts":true}'
   );
@@ -24,60 +21,25 @@ const Calculator = (props) => {
   const scoreTrackerRef = useRef();
   const screenRef = useRef();
 
-  const saveData = async () => {
+  const saveStats = async (value) => {
     try {
-      await AsyncStorage.setItem(STORAGE_KEY, savedStats)
-      alert("Data successfully saved: " + savedStats)
+      await AsyncStorage.setItem("@storage_Key", value);
     } catch (e) {
-      alert('Failed to save the data to the storage')
+      // saving error
     }
-  }
+  };
 
-
-  const readData = async () => {
+  const loadStats = async () => {
     try {
-      const stats = await AsyncStorage.getItem(STORAGE_KEY)
-
-      if (stats !== null) {
-        console.log("read2");
-        setSavedStats(stats);
-        let statsJson = JSON.parse(savedStats);
-    setProduct(statsJson.product);
-    setProducts(statsJson.products);
-    setLevelAttempts(statsJson.levelAttempts);
-    props.onUpdateLevel(statsJson.level);
-    console.log("read3");
-
+      const value = await AsyncStorage.getItem("@storage_Key");
+      if (value !== null) {
+        setSavedStats(value);
       }
     } catch (e) {
-      alert('Failed to fetch the data from storage')
+      // error reading value
     }
-  }
-  useEffect(() => {
-    console.log("read");
-    readData();
-   // splitStats();
-  }, [])
+  };
 
-  const splitStats = () => {
-    let statsJson = JSON.parse(savedStats);
-    setProduct(statsJson.product);
-    setProducts(statsJson.products);
-    setLevelAttempts(statsJson.levelAttempts);
-    props.onUpdateLevel(statsJson.level);
-    console.log("read3")
-  }
-
-  const clearStorage = async () => {
-    try {
-      await AsyncStorage.clear()
-      alert('Storage successfully cleared!')
-    } catch (e) {
-      alert('Failed to clear the async storage.')
-    }
-  }
-
-  /*
   const _handleAppStateChange = (nextAppState) => {
     if (nextAppState === "background" || nextAppState === "inactive") {
       saveStats(savedStats);
@@ -98,13 +60,6 @@ const Calculator = (props) => {
     };
   }, []);
 
-*/
-  const saveHandler = () => {
-    if (!savedStats) return
-
-    saveData(savedStats)
-
-  }
   useEffect(() => {
     let statsJson = {
       level: props.level,
@@ -289,8 +244,6 @@ const Calculator = (props) => {
           onOutOfTime={outOfTimeHandler}
         />
       </View>
-      <Button title="save" onPress={saveHandler} />
-      <Button title="clear" onPress={clearStorage} />
     </View>
   );
 };
