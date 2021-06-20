@@ -22,8 +22,9 @@ class Calculator extends Component {
 
     this.scoreTrackerRef = createRef();
     this.screenRef = createRef();
+    
     this.readStats = () => {
-      props.readStats()
+      this.props.readStats()
       setTimeout(() => {
         let statsJson = { ...props.savedStats };
         this.setState({ products: statsJson.products });
@@ -61,9 +62,8 @@ class Calculator extends Component {
         products: this.state.products,
         levelAttempts: this.state.levelAttempts,
       };
-      props.onPassStats(statsJson)
+      this.props.onPassStats(statsJson)
     }
-
 
     const _generateProducts = () => {
       const newProducts = [];
@@ -84,12 +84,12 @@ class Calculator extends Component {
       let productsArray = [...this.state.products];
       if (productsArray.length < 1) {
         productsArray = _generateProducts();
-        props.onChangeLevel("up");
+        this.props.onChangeLevel("up");
       }
       if (productsArray.length >= 50) {
         productsArray = _generateProducts();
 
-        props.onChangeLevel("down");
+        this.props.onChangeLevel("down");
       }
       const randomIndex = Math.floor(Math.random() * productsArray.length);
       const newProduct = productsArray.splice(randomIndex, 1);
@@ -105,81 +105,94 @@ class Calculator extends Component {
         })
         generateProduct();
         this.screenRef.current.changeTextColor("black");
+        console.log("C107: ", this.screenRef.current)
       }
     };
 
     const stopHandler = () => {
-      if (started) {
-        setDigits("");
-        setProducts([product, ...products]);
+      if (this.state.started) {
+        this.setState({
+          digits: "",
+          started: false,
+          timerFlag: "stop",
+          products: [this.state.product, ...this.state.products]
+        })
         this.screenRef.current.changeTextColor("transparent");
-        setStarted(false);
-        setTimerFlag("stop");
       }
     };
 
     const checkProductHandler = (answer) => {
-      const numbers = product.split(" × ");
+      const numbers = this.state.product.split(" × ");
       const result = parseInt(numbers[0]) * parseInt(numbers[1]);
       if (parseInt(answer) === result) {
-        setDigits("");
+        this.setState({ digits: "" });
         this.screenRef.current.changeInputColor("#79e36d");
         setTimeout(() => {
           this.screenRef.current.changeInputColor("#ccd4cb");
         }, 250);
         generateProduct();
-        if (timerFlag === "reset-on") {
-          setTimerFlag("reset-off");
+        if (this.state.timerFlag === "reset-on") {
+          this.setState({ timerFlag: "reset-off" });
         } else {
-          setTimerFlag("reset-on");
+          this.setState({ timerFlag: "reset-on" });
         }
       } else {
         this.screenRef.current.changeInputColor("#f75252");
-        setProducts([product, ...products]);
-        if (products.length >= 50) {
+        this.setState({ products: [this.state.product, ...this.state.products] });
+        if (this.state.products.length >= 50) {
           generateProduct();
         }
-        if (timerFlag === "reset-on") {
-          setTimerFlag("reset-off");
+        if (this.state.timerFlag === "reset-on") {
+          this.setState({ timerFlag: "reset-off" });
         } else {
-          setTimerFlag("reset-on");
+          this.setState({ timerFlag: "reset-on" })
         }
         setTimeout(() => {
           this.screenRef.current.changeInputColor("#ccd4cb");
-          setDigits("");
+          this.setState({ digits: "" });
         }, 250);
       }
     };
 
+
     const deleteHandler = () => {
-      if (digits.length > 0 && started) {
-        setDigits((prevDigits) => prevDigits.slice(0, -1));
+      if (this.state.digits.length > 0 && this.state.started) {
+        this.setState((state) => {
+          return { digits: state.digits.slice(0, -1) }
+        })
       } else {
-        setDigits("");
+        this.setState({ digits: "" })
       }
     };
 
     const enterHandler = () => {
-      if (digits.length > 0 && started) {
-        checkProductHandler(digits);
-        setStarted(true);
+      if (this.state.digits.length > 0 && this.state.started) {
+        checkProductHandler(this.state.digits);
+        this.setState({ started: true });
       }
-      if (digits.length === 3 && !started && digits.slice(0, 2) === "13" && digits[2] !== "0") {
-        props.onUpdateLevel(digits[2]);
-        setProducts(generateProducts());
-        setDigits("");
+      if (this.state.digits.length === 3 && !this.state.started && this.state.digits.slice(0, 2) === "13" && this.state.digits[2] !== "0") {
+        this.props.onUpdateLevel(this.state.digits[2]);
+        let products = _generateProducts();
+        this.setState({
+          digits: "",
+          products: products
+        })
       }
-      if (digits.length === 3 && !started && digits.slice(0, 2) === "77" && digits[2] !== "0") {
-        setTimerRate(digits[2]);
-        setDigits("");
+      if (this.state.digits.length === 3 && !this.state.started && this.state.digits.slice(0, 2) === "77" && this.state.digits[2] !== "0") {
+        let products = _generateProducts();
+        this.setState({
+          digits: "",
+          products: products,
+          timerRate: this.state.digits[2]
+        })
       }
-      if (!started) {
-        setDigits("");
+      if (!this.state.started) {
+        this.setState({digits: ""});
       }
     };
 
     const enteredDigitsHandler = (newDigit) => {
-      if (digits.length < 3) {
+      if (this.state.digits.length < 3) {
         this.setState((state) => {
           return { digits: state.digits + newDigit }
         });
@@ -210,23 +223,23 @@ class Calculator extends Component {
         this.setState({ levelAttempts: false });
       } else {
         this.setState({ levelAttempts: true });
-        props.onChangeLevel("down");
+        this.props.onChangeLevel("down");
       }
     };
 
     return (
-      <View className="calculator" style={styles.calculator}>
+      <View className="calculator" style={styles.calculator} >
         <Screen ref={this.screenRef} product={this.product} digits={this.digits} key="screen" />
         <View style={styles.calculatorBody}>
           <ScoreTracker
             style={styles.scoreTracker}
             ref={this.scoreTrackerRef}
-            level={props.level}
+            level={this.props.level}
           />
           <Timer
             style={styles.timer}
             timerFlag={this.state.timerFlag}
-            level={props.level}
+            level={this.props.level}
             onOutOfTime={outOfTimeHandler}
             timerRate={this.state.timerRate}
           />
@@ -243,7 +256,7 @@ class Calculator extends Component {
         </View>
         <View style={{ flexDirection: "row" }}>
           <Button title="save" onPress={passStatsHandler} />
-          <Button title="clear" onPress={props.onclearStats} />
+          <Button title="clear" onPress={this.props.onclearStats} />
           <Button title="read" onPress={this.readStats} />
         </View>
       </View>

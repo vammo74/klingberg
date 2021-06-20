@@ -20,15 +20,15 @@ class App extends Component {
       savedStats: { level: 4, products: ["5 × 9", "5 × 8", "4 × 7", "2 × 2", "2 × 3", "2 × 4", "2 × 5", "2 × 6", "2 × 7", "2 × 8", "2 × 9", "2 × 10", "3 × 3", "3 × 4", "3 × 5", "3 × 6", "3 × 7", "3 × 8", "3 × 9", "4 × 4", "4 × 5", "4 × 6", "4 × 8", "4 × 9", "4 × 10", "5 × 5", "5 × 6", "5 × 7", "5 × 10", "6 × 6", "6 × 7", "6 × 8", "6 × 9", "6 × 10", "7 × 7", "7 × 8", "7 × 9", "7 × 10", "8 × 8", "8 × 9", "8 × 10", "9 × 9", "9 × 10", "10 × 10"], levelAttempts: true },
     }
     this.saveStats = () => {
-      console.log(savedStats)
+      console.log(JSON.stringify(this.state.savedStats))
       MMKV.setMap("savedStats", this.state.savedStats);
     }
 
     this.readStats = () => {
       MMKV.getMap("savedStats", (error, result) => {
         if (error) {
-          console.log(error);
-          return;
+          console.log("error: ", error);
+          return 0;
         }
 
         this.setState({ savedStats: result });
@@ -46,11 +46,11 @@ class App extends Component {
   }
 
   componentDidMount() {
-    readStats()
+    this.readStats()
   }
 
   componentWillUnmount() {
-    saveStats()
+    this.saveStats()
   }
   render() {
 
@@ -58,17 +58,17 @@ class App extends Component {
     const passStatsHandler = (passedStats) => {
       let stats = {level: this.state.level, ...passedStats}
       this.setState({savedStats: stats});
-      saveStats()
+      this.saveStats()
     }
 
     const changeLevelHandler = (flag) => {
       if (flag === "up" && this.state.level <= 10) {
-        setState((state) => {
+        this.setState((state) => {
           return { level: state.level + 1 };
         })
       }
       if (flag === "down" && this.state.level > 0) {
-        setState((state) => {
+        this.setState((state) => {
           return { level: state.level - 1 };
         })
       }
