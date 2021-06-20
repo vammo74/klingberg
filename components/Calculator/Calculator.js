@@ -6,13 +6,13 @@ import Screen from "./Screen";
 import ScoreTracker from "./ScoreTracker";
 import Timer from "./Timer";
 
-const STORAGE_KEY = '@save_stats'
+// const STORAGE_KEY = '@save_stats'
 
 const Calculator = (props) => {
-  console.log("remount")
-  const [savedStats, setSavedStats] = useState(
-    '{"level":4,"product":"","products":["5 × 9","5 × 8","4 × 7","2 × 2","2 × 3","2 × 4","2 × 5","2 × 6","2 × 7","2 × 8","2 × 9","2 × 10","3 × 3","3 × 4","3 × 5","3 × 6","3 × 7","3 × 8","3 × 9","4 × 4","4 × 5","4 × 6","4 × 8","4 × 9","4 × 10","5 × 5","5 × 6","5 × 7","5 × 10","6 × 6","6 × 7","6 × 8","6 × 9","6 × 10","7 × 7","7 × 8","7 × 9","7 × 10","8 × 8","8 × 9","8 × 10","9 × 9","9 × 10","10 × 10"],"levelAttempts":true}'
-  );
+  console.log("Calculator")
+  // const [savedStats, setSavedStats] = useState(
+  //   '{"level":4,"product":"","products":["5 × 9","5 × 8","4 × 7","2 × 2","2 × 3","2 × 4","2 × 5","2 × 6","2 × 7","2 × 8","2 × 9","2 × 10","3 × 3","3 × 4","3 × 5","3 × 6","3 × 7","3 × 8","3 × 9","4 × 4","4 × 5","4 × 6","4 × 8","4 × 9","4 × 10","5 × 5","5 × 6","5 × 7","5 × 10","6 × 6","6 × 7","6 × 8","6 × 9","6 × 10","7 × 7","7 × 8","7 × 9","7 × 10","8 × 8","8 × 9","8 × 10","9 × 9","9 × 10","10 × 10"],"levelAttempts":true}'
+  // );
   const [levelAttempts, setLevelAttempts] = useState(true);
   const [started, setStarted] = useState(false);
   const [product, setProduct] = useState("");
@@ -24,58 +24,26 @@ const Calculator = (props) => {
   const scoreTrackerRef = useRef();
   const screenRef = useRef();
 
-  const saveData = async () => {
-    try {
-      await AsyncStorage.setItem(STORAGE_KEY, savedStats)
-      alert("Data successfully saved: " + savedStats)
-    } catch (e) {
-      alert('Failed to save the data to the storage')
-    }
-  }
+ 
 
-
-  const readData = async () => {
-    try {
-      const stats = await AsyncStorage.getItem(STORAGE_KEY)
-
-      if (stats !== null) {
-        console.log("read2");
-        setSavedStats(stats);
-        let statsJson = JSON.parse(savedStats);
-    setProduct(statsJson.product);
-    setProducts(statsJson.products);
-    setLevelAttempts(statsJson.levelAttempts);
-    props.onUpdateLevel(statsJson.level);
-    console.log("read3");
-
+  const readStats = () => {
+    props.readStats()
+    setTimeout(() => {
+    const splitStats = () => {
+      if (props.savedStats) {
+        let statsJson = JSON.parse(props.savedStats);
+        setProduct(statsJson.product);
+        setProducts(statsJson.products);
+        setLevelAttempts(statsJson.levelAttempts);
+        props.onUpdateLevel(statsJson.level);
+        console.log("read3")
       }
-    } catch (e) {
-      alert('Failed to fetch the data from storage')
     }
-  }
-  useEffect(() => {
-    console.log("read");
-    readData();
-   // splitStats();
-  }, [])
-
-  const splitStats = () => {
-    let statsJson = JSON.parse(savedStats);
-    setProduct(statsJson.product);
-    setProducts(statsJson.products);
-    setLevelAttempts(statsJson.levelAttempts);
-    props.onUpdateLevel(statsJson.level);
-    console.log("read3")
+    splitStats()}, 1000)
   }
 
-  const clearStorage = async () => {
-    try {
-      await AsyncStorage.clear()
-      alert('Storage successfully cleared!')
-    } catch (e) {
-      alert('Failed to clear the async storage.')
-    }
-  }
+  
+
 
   /*
   const _handleAppStateChange = (nextAppState) => {
@@ -99,13 +67,7 @@ const Calculator = (props) => {
   }, []);
 
 */
-  const saveHandler = () => {
-    if (!savedStats) return
-
-    saveData(savedStats)
-
-  }
-  useEffect(() => {
+  const passStatsHandler = () => {
     let statsJson = {
       level: props.level,
       product: product,
@@ -113,8 +75,20 @@ const Calculator = (props) => {
       levelAttempts: levelAttempts,
     };
     let stats = JSON.stringify(statsJson);
-    setSavedStats(stats);
-  }, [props.level, product, products]);
+    console.log(stats)
+    props.onPassStats(stats)
+
+  }
+  // useEffect(() => {
+  //   let statsJson = {
+  //     level: props.level,
+  //     product: product,
+  //     products: products,
+  //     levelAttempts: levelAttempts,
+  //   };
+  //   let stats = JSON.stringify(statsJson);
+  //   setSavedStats(stats);
+  // }, [props.level, product, products]);
 
   const generateProducts = () => {
     const newProducts = [];
@@ -289,8 +263,11 @@ const Calculator = (props) => {
           onOutOfTime={outOfTimeHandler}
         />
       </View>
-      <Button title="save" onPress={saveHandler} />
-      <Button title="clear" onPress={clearStorage} />
+      <View style={{flexDirection: "row"}}>
+      <Button title="save" onPress={passStatsHandler} />
+      <Button title="clear" onPress={props.onclearStats} />
+      <Button title="read" onPress={readStats} />
+      </View>
     </View>
   );
 };

@@ -57,6 +57,7 @@ const generateTableData = () => {
 let tableData = generateTableData();
 
 const Table = (props) => {
+  console.log("Table")
   const cellRefs = useRef([]);
 
   const horizontalColorHandler = (value) => {

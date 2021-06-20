@@ -1,14 +1,86 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, SafeAreaView, StatusBar, Modal } from 'react-native';
+// import AsyncStorage from "@react-native-async-storage/async-storage";
+import MMKVStorage from "react-native-mmkv-storage";
 import Calculator from "./components/Calculator/Calculator";
 import Table from "./components/Table/Table";
 import InfoButton from "./components/UI/Buttons/InfoButton";
 import PopUp from "./components/UI/PopUp/PopUp";
 
+// const STORAGE_KEY = '@save_stats'
+
+MMKV = new MMKVStorage.Loader().initialize();
 
 const App = () => {
+  console.log("App")
   const [level, setLevel] = useState(3);
   const [popupped, setPopupped] = useState(false);
+  const [savedStats, setSavedStats] = useState(
+    '{"level":4,"product":"","products":["5 × 9","5 × 8","4 × 7","2 × 2","2 × 3","2 × 4","2 × 5","2 × 6","2 × 7","2 × 8","2 × 9","2 × 10","3 × 3","3 × 4","3 × 5","3 × 6","3 × 7","3 × 8","3 × 9","4 × 4","4 × 5","4 × 6","4 × 8","4 × 9","4 × 10","5 × 5","5 × 6","5 × 7","5 × 10","6 × 6","6 × 7","6 × 8","6 × 9","6 × 10","7 × 7","7 × 8","7 × 9","7 × 10","8 × 8","8 × 9","8 × 10","9 × 9","9 × 10","10 × 10"],"levelAttempts":true}'
+  );
+
+  // const saveStats = async () => {
+  //   try {
+  //     await AsyncStorage.setItem(STORAGE_KEY, savedStats)
+  //     alert("Data successfully saved: " + savedStats)
+  //   } catch (e) {
+  //     alert('Failed to save the data to the storage')
+  //   }
+  // }
+
+  const saveStats = () => {
+    console.log(savedStats)
+    MMKV.setString("savedStats", savedStats);
+  }
+  
+  // const readStats = async () => {
+  //   try {
+  //     const stats = await AsyncStorage.getItem(STORAGE_KEY)
+
+  //     if (stats !== null) {
+  //       setSavedStats(stats);
+        
+  //     }
+  //   } catch (e) {
+  //     alert('Failed to fetch the data from storage')
+  //   }
+  // }
+
+  const readStats = () => {
+    MMKV.getString("savedStats", (error, result) => {
+      if (error) {
+        console.log(error);
+        return;
+      }
+    
+      setSavedStats(result);
+      console.log("result: " + result)
+    });
+  }
+
+  // const clearStats = async () => {
+  //   try {
+  //     await AsyncStorage.clear()
+  //     alert('Storage successfully cleared!')
+  //   } catch (e) {
+  //     alert('Failed to clear the async storage.')
+  //   }
+  // }
+
+  const clearStats = () => {
+    
+  }
+
+  // useEffect(() => {
+  //   console.log("read");
+  //   readStats();
+    
+  // }, [])
+
+  const passStatsHandler = (passedStats) => {
+    setSavedStats(passedStats);
+    saveStats()
+  }
 
   const changeLevelHandler = (flag) => {
     if (flag === "up" && level <= 10) {
@@ -21,35 +93,6 @@ const App = () => {
   const updateLevelHandler = (newLevel) => {
     setLevel(newLevel);
   };
-
-  const popUpStyles = StyleSheet.create({
-    popup: {
-      flex: 1,
-      position: "absolute",
-      flexDirection: "column",
-      justifyContent: "center",
-      alignContent: "center",
-      top: 0,
-      bottom: 0,
-      right: 0,
-      left: 0,
-
-    },
-    underlay: {
-      flex: 1,
-      position: "absolute",
-      flexDirection: "column",
-      justifyContent: "center",
-      alignContent: "center",
-      top: 0,
-      bottom: 0,
-      right: 0,
-      left: 0,
-      opacity: 0.5,
-      backgroundColor: "black",
-    },
-  });
-
 
 
   const popupOpenHandler = () => {
@@ -75,6 +118,11 @@ const App = () => {
           level={level}
           onUpdateLevel={updateLevelHandler}
           onChangeLevel={(flag) => changeLevelHandler(flag)}
+          onSaveStats={saveStats}
+          onClearStats={clearStats}
+          onPassStats={passStatsHandler}
+          readStats={readStats}
+          savedStats={savedStats}
         />
         </View>
       </Modal>
