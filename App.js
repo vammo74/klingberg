@@ -28,7 +28,7 @@ class App extends Component {
       MMKV.getMap("savedStats", (error, result) => {
         if (error) {
           console.log("error: ", error);
-          return 0;
+          return savedStats;
         }
 
         this.setState({ savedStats: result });
@@ -46,7 +46,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.readStats()
+ //   this.readStats()
   }
 
   componentWillUnmount() {
@@ -80,23 +80,29 @@ class App extends Component {
 
 
     const popupOpenHandler = () => {
+      console.log("popup")
       this.setState({popupped: true});
     };
 
     const popupCloseHandler = () => {
+      console.log("popup down")
       this.setState({popupped: false});
     };
 
     return (
       <SafeAreaView style={styles.container}>
+        <Modal>
         <PopUp popupped={this.state.popupped} closePopup={popupCloseHandler} />
+        </Modal>
         <Modal>
           <View style={styles.game}>
             <View style={styles.header}>
               <View style={styles.title}><Text style={styles.text}>Multiplikation Övning</Text></View>
-              <InfoButton title="i" onPress={popupOpenHandler} />
+              <InfoButton title="i"
+              // onPress={popupOpenHandler}
+              />
             </View>
-            <Table level={this.state.level} popupped={this.state.popupped} />
+            <Table level={this.state.level} key="table"/>
             <Calculator
               level={this.state.level}
               onUpdateLevel={updateLevelHandler}

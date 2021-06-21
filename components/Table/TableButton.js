@@ -27,6 +27,14 @@ class TableButton extends Component {
       });
     };
   }
+  componentDidMount() {
+    console.log("mount table button")
+  }
+
+  componentWillUnmount() {
+    console.log("unmount table button")
+  }
+
   render() {
     const { title, id, buttonFunction, onPress, disabled } = this.props;
     const pressInHandler = () => {

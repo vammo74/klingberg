@@ -32,7 +32,13 @@ class Calculator extends Component {
       }, 250)
     }
   }
+componentDidMount() {
+  console.log("mount Calculator")
+}
 
+componentWillUnmount() {
+  console.log("unmount Calculator")
+}
   render() {
 
     /*
