@@ -1,12 +1,12 @@
-import React, { Component, Fragment } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React, {Component, Fragment} from 'react';
+import {View, Text, StyleSheet} from 'react-native';
 
 class Screen extends Component {
   constructor(props) {
     super(props);
     this.state = {
       textOn: true,
-      flashColor: "normal",
+      flashColor: 'normal',
     };
     this.changeTextColor = this.changeTextColor.bind(this);
     this.changeInputColor = this.changeInputColor.bind(this);
@@ -14,29 +14,29 @@ class Screen extends Component {
 
   changeTextColor(bool) {
     this.setState(() => {
-      return { textOn: bool };
+      return {textOn: bool};
     });
     console.log(this.state.textOn);
   }
 
   changeInputColor(flag) {
     this.setState(() => {
-      return { flashColor: flag };
+      return {flashColor: flag};
     });
     console.log(this.state.flashColor);
   }
 
   componentDidMount() {
-    console.log("mount screen");
+    console.log('mount screen');
   }
 
   componentWillUnmount() {
-    console.log("unmount screen");
+    console.log('unmount screen');
   }
 
   render() {
     let screenView;
-    if (this.state.flashColor === "normal") {
+    if (this.state.flashColor === 'normal') {
       screenView = (
         <Fragment>
           <View style={styles.productScreen}>
@@ -56,20 +56,18 @@ class Screen extends Component {
         <Fragment>
           <View
             style={
-              this.state.flashColor === "red"
+              this.state.flashColor === 'red'
                 ? styles.redScreen
                 : styles.greenScreen
-            }
-          >
+            }>
             <Text style={styles.text}>{this.props.product}</Text>
           </View>
           <View
             style={
-              this.state.flashColor === "red"
+              this.state.flashColor === 'red'
                 ? styles.redScreen
                 : styles.greenScreen
-            }
-          >
+            }>
             <Text style={styles.text}>{this.props.digits}</Text>
           </View>
         </Fragment>
@@ -82,53 +80,53 @@ class Screen extends Component {
 
 const styles = StyleSheet.create({
   screenContainer: {
-    flexDirection: "row",
+    flexDirection: 'row',
     padding: 5,
-    backgroundColor: "#ccc",
+    backgroundColor: '#ccc',
 
-    borderStyle: "solid",
+    borderStyle: 'solid',
     borderWidth: 1,
-    borderColor: "black",
-    margin: "2%",
+    borderColor: 'black',
+    margin: '2%',
     elevation: 5,
   },
   productScreen: {
     flex: 1,
-    backgroundColor: "#ccd4cb",
-    borderStyle: "solid",
+    backgroundColor: '#ccd4cb',
+    borderStyle: 'solid',
     borderWidth: 1,
-    borderColor: "black",
-    margin: "2%",
+    borderColor: 'black',
+    margin: '2%',
     elevation: 5,
   },
   redScreen: {
-    backgroundColor: "red",
+    backgroundColor: 'red',
 
     flex: 1,
-    borderStyle: "solid",
+    borderStyle: 'solid',
     borderWidth: 1,
-    borderColor: "black",
-    margin: "2%",
+    borderColor: 'black',
+    margin: '2%',
     elevation: 5,
   },
   greenScreen: {
-    backgroundColor: "green",
+    backgroundColor: 'green',
     flex: 1,
-    borderStyle: "solid",
+    borderStyle: 'solid',
     borderWidth: 1,
-    borderColor: "black",
-    margin: "2%",
+    borderColor: 'black',
+    margin: '2%',
     elevation: 5,
   },
   text: {
-    textAlign: "center",
+    textAlign: 'center',
     fontSize: 40,
-    color: "black",
+    color: 'black',
   },
   noText: {
-    textAlign: "center",
+    textAlign: 'center',
     fontSize: 40,
-    color: "transparent",
+    color: 'transparent',
   },
 });
 

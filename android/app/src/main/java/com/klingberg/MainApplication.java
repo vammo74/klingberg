@@ -11,6 +11,9 @@ import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+import com.ammarahmed.mmkv.RNMMKVJSIModulePackage; // <- add here
+import com.facebook.react.bridge.JSIModulePackage; // <- add here
+
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost =
@@ -33,6 +36,14 @@ public class MainApplication extends Application implements ReactApplication {
         protected String getJSMainModuleName() {
           return "index";
         }
+
+      // add this method to load our JSI Module.
+        @Override
+        protected JSIModulePackage getJSIModulePackage() {
+          return new RNMMKVJSIModulePackage();
+        }
+      //  
+
       };
 
   @Override

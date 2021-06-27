@@ -1,12 +1,12 @@
-import React, { PureComponent } from "react";
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import React, {PureComponent} from 'react';
+import {View, Text, StyleSheet, Pressable} from 'react-native';
 
 class TableButton extends PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      buttonState: "normal",
+      buttonState: 'normal',
     };
 
     this.activateCell = this.activateCell.bind(this);
@@ -14,7 +14,7 @@ class TableButton extends PureComponent {
 
   activateCell(flag) {
     this.setState(() => {
-      return { buttonState: flag };
+      return {buttonState: flag};
     });
   }
 
@@ -24,27 +24,27 @@ class TableButton extends PureComponent {
 
   render() {
     const pressInHandler = () => {
-      this.activateCell("inpressed");
+      this.activateCell('inpressed');
     };
 
     const pressOutHandler = () => {
-      this.activateCell("outpressed");
+      this.activateCell('outpressed');
     };
 
     let buttonForm;
-    if (this.state.buttonState === "inpressed") {
+    if (this.state.buttonState === 'inpressed') {
       buttonForm = (
         <View style={styles.inpressed}>
           <Text style={styles.blackText}>{this.props.title}</Text>
         </View>
       );
-    } else if (this.state.buttonState === "activated") {
+    } else if (this.state.buttonState === 'activated') {
       buttonForm = (
         <View style={styles.activated}>
           <Text style={styles.whiteText}>{this.props.title}</Text>
         </View>
       );
-    } else if (this.state.buttonState === "outpressed") {
+    } else if (this.state.buttonState === 'outpressed') {
       buttonForm = (
         <View style={styles.outpressed}>
           <Text style={styles.whiteText}>{this.props.title}</Text>
@@ -66,8 +66,7 @@ class TableButton extends PureComponent {
         onPress={this.props.onPress}
         onPressIn={!this.props.disabled && pressInHandler}
         onPressOut={!this.props.disabled && pressOutHandler}
-        disabled={this.props.disabled}
-      >
+        disabled={this.props.disabled}>
         {buttonForm}
       </Pressable>
     );
@@ -76,63 +75,63 @@ class TableButton extends PureComponent {
 
 const styles = StyleSheet.create({
   container: {
-    borderStyle: "solid",
-    borderColor: "black",
+    borderStyle: 'solid',
+    borderColor: 'black',
     borderWidth: 1,
-    backgroundColor: "#5a235c",
+    backgroundColor: '#5a235c',
     flex: 1,
-    margin: "0.25%",
+    margin: '0.25%',
     borderRadius: 3,
     borderTopLeftRadius: 5,
     borderBottomRightRadius: 5,
   },
   button: {
-    backgroundColor: "#9377a6",
-    marginTop: "7%",
-    marginRight: "7%",
+    backgroundColor: '#9377a6',
+    marginTop: '7%',
+    marginRight: '7%',
     borderRadius: 3,
     elevation: 4,
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   activated: {
-    backgroundColor: "#7121a6",
-    marginTop: "7%",
-    marginRight: "7%",
+    backgroundColor: '#7121a6',
+    marginTop: '7%',
+    marginRight: '7%',
     borderRadius: 3,
     elevation: 4,
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   inpressed: {
-    backgroundColor: "#9377a6",
+    backgroundColor: '#9377a6',
     marginTop: 0,
     marginRight: 0,
     borderRadius: 3,
     elevation: 4,
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   outpressed: {
-    backgroundColor: "#7121a6",
-    marginTop: "7%",
-    marginRight: "7%",
+    backgroundColor: '#7121a6',
+    marginTop: '7%',
+    marginRight: '7%',
     borderRadius: 3,
     elevation: 4,
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   whiteText: {
-    textAlign: "center",
-    color: "white",
+    textAlign: 'center',
+    color: 'white',
   },
   blackText: {
-    textAlign: "center",
-    color: "black",
+    textAlign: 'center',
+    color: 'black',
   },
 });
 

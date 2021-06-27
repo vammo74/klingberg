@@ -1,20 +1,25 @@
-import React, { useEffect, useRef, useState } from "react";
-import { View, StyleSheet } from "react-native";
-import { useInterval } from "../helpers/useInterval";
+import React, {useEffect, useRef, useState} from 'react';
+import {View, StyleSheet} from 'react-native';
+import {useInterval} from '../helpers/useInterval';
 
 let colorModifier = 1;
 
-const Timer = (props) => {
+const Timer = props => {
   const timer = useRef();
   const [timerHeight, setTimerHeight] = useState(0);
   const [timerState, setTimerState] = useState(true);
   const [timerRate, setTimerRate] = useState(5);
-
   useEffect(() => {
-    if (props.timerFlag === "start") {
+    console.log('mount timer');
+    return () => {
+      console.log('unmount timer');
+    };
+  }, []);
+  useEffect(() => {
+    if (props.timerFlag === 'start') {
       setTimerState(true);
       setTimerHeight(0);
-    } else if (props.timerFlag === "stop") {
+    } else if (props.timerFlag === 'stop') {
       setTimerState(false);
       setTimerHeight(0);
     } else {
@@ -49,19 +54,19 @@ const Timer = (props) => {
   const timerFillStyles = StyleSheet.create({
     timerFill: {
       borderWidth: 1,
-      borderStyle: "solid",
-      borderColor: "#000",
+      borderStyle: 'solid',
+      borderColor: '#000',
       backgroundColor: `rgb(${255 * (colorModifier / 100)}, 0, ${
         200 * (1 / (colorModifier + 1))
       })`,
-      height: timerHeight + "%",
+      height: timerHeight + '%',
     },
   });
 
   return (
     <View style={styles.container}>
       <View style={styles.timer}>
-        <View style={timerFillStyles.timerFill} ref={timer}></View>
+        <View style={timerFillStyles.timerFill} ref={timer} />
       </View>
     </View>
   );
@@ -69,19 +74,19 @@ const Timer = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "column",
-    alignContent: "flex-end",
+    flexDirection: 'column',
+    alignContent: 'flex-end',
     elevation: 5,
   },
   timer: {
-    width: "90%",
-    borderColor: "black",
-    borderStyle: "solid",
+    width: '90%',
+    borderColor: 'black',
+    borderStyle: 'solid',
     borderWidth: 1,
-    backgroundColor: "#dae0db",
+    backgroundColor: '#dae0db',
     flex: 1,
-    flexDirection: "column",
-    justifyContent: "flex-end",
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
   },
 });
 export default Timer;

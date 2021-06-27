@@ -1,32 +1,32 @@
-import React, { useRef } from "react";
-import { Button, View, StyleSheet } from "react-native";
+import React, {useRef, useEffect} from 'react';
+import {View, StyleSheet} from 'react-native';
 
-import LButtonTop from "../UI/Buttons/LButtonTop";
-import LButtonBottom from "../UI/Buttons/LButtonBottom";
-import LButtonLeft from "../UI/Buttons/LButtonLeft";
-import IButtonTop from "../UI/Buttons/IButtonTop";
-import IButtonBottom from "../UI/Buttons/IButtonBottom";
-import NormalButton from "../UI/Buttons/NormalButton";
-import DelButton from "../UI/Buttons/DelButton";
+import LButtonTop from '../UI/Buttons/LButtonTop';
+import LButtonBottom from '../UI/Buttons/LButtonBottom';
+import LButtonLeft from '../UI/Buttons/LButtonLeft';
+import IButtonTop from '../UI/Buttons/IButtonTop';
+import IButtonBottom from '../UI/Buttons/IButtonBottom';
+import NormalButton from '../UI/Buttons/NormalButton';
+import DelButton from '../UI/Buttons/DelButton';
 
-const NumberPad = (props) => {
+const NumberPad = props => {
   const LBBRef = useRef(null);
   const LBTRef = useRef(null);
   const LBLRef = useRef(null);
   const IBTRef = useRef(null);
   const IBBRef = useRef(null);
 
-  const pressInLinkedHandler = (linkedButtons) => {
+  const pressInLinkedHandler = linkedButtons => {
     for (let button of linkedButtons) {
       button.current.pressInHandler();
     }
   };
-  const pressOutLinkedHandler = (linkedButtons) => {
+  const pressOutLinkedHandler = linkedButtons => {
     for (let button of linkedButtons) {
       button.current.pressOutHandler();
     }
   };
-  const pressHandler = (digit) => {
+  const pressHandler = digit => {
     props.onEnteredDigit(digit);
   };
   const deleteHandler = () => {
@@ -35,6 +35,14 @@ const NumberPad = (props) => {
   const enterHandler = () => {
     props.onEnter();
   };
+
+  useEffect(() => {
+    console.log('mount numberpad');
+    return () => {
+      console.log('unmount numberpad');
+    };
+  }, []);
+
   return (
     <View style={styles.mainGrid}>
       <View style={styles.buttonRow}>
@@ -58,7 +66,7 @@ const NumberPad = (props) => {
         />
         <IButtonTop
           ref={IBTRef}
-          title={!props.started ? "G" : "ST"}
+          title={!props.started ? 'G' : 'ST'}
           onPressIn={() => {
             pressInLinkedHandler([IBBRef]);
           }}
@@ -90,7 +98,7 @@ const NumberPad = (props) => {
         />
         <IButtonBottom
           ref={IBBRef}
-          title={!props.started ? "O" : "OP"}
+          title={!props.started ? 'O' : 'OP'}
           onPress={props.onStart}
           onPressIn={() => {
             pressInLinkedHandler([IBTRef]);
@@ -171,23 +179,23 @@ const NumberPad = (props) => {
 const styles = StyleSheet.create({
   mainGrid: {
     flex: 4,
-    flexDirection: "column",
-    backgroundColor: "#8d8e96",
-    alignItems: "center",
-    justifyContent: "center",
+    flexDirection: 'column',
+    backgroundColor: '#8d8e96',
+    alignItems: 'center',
+    justifyContent: 'center',
     elevation: 10,
   },
   buttonRow: {
     flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   lastButtonRow: {
     flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
     zIndex: -1,
   },
 });

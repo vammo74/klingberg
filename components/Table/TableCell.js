@@ -1,11 +1,11 @@
-import React, { PureComponent } from "react";
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import React, {PureComponent} from 'react';
+import {View, Text, StyleSheet, Pressable} from 'react-native';
 
 class TableCell extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      buttonState: "normal",
+      buttonState: 'normal',
     };
 
     this.activateCell = this.activateCell.bind(this);
@@ -13,7 +13,7 @@ class TableCell extends PureComponent {
 
   activateCell(flag) {
     this.setState(() => {
-      return { buttonState: flag };
+      return {buttonState: flag};
     });
   }
 
@@ -22,22 +22,22 @@ class TableCell extends PureComponent {
   componentWillUnmount() {}
 
   render() {
-    const { title, id, buttonFunction, excluded } = this.props;
+    const {title, id, buttonFunction} = this.props;
 
     let buttonForm;
-    if (this.state.buttonState === "excluded") {
+    if (this.state.buttonState === 'excluded') {
       buttonForm = (
         <View style={styles.excluded}>
-          <Text style={{ color: "transparent" }}>{title}</Text>
+          <Text style={{color: 'transparent'}}>{title}</Text>
         </View>
       );
-    } else if (this.state.buttonState === "activated") {
+    } else if (this.state.buttonState === 'activated') {
       buttonForm = (
         <View style={styles.activated}>
           <Text style={styles.whiteText}>{title}</Text>
         </View>
       );
-    } else if (this.state.buttonState === "crossed") {
+    } else if (this.state.buttonState === 'crossed') {
       buttonForm = (
         <View style={styles.crossed}>
           <Text style={styles.whiteText}>{title}</Text>
@@ -55,8 +55,7 @@ class TableCell extends PureComponent {
       <Pressable
         style={styles.container}
         buttonFunction={buttonFunction}
-        id={id}
-      >
+        id={id}>
         {buttonForm}
       </Pressable>
     );
@@ -65,56 +64,56 @@ class TableCell extends PureComponent {
 
 const styles = StyleSheet.create({
   container: {
-    borderStyle: "solid",
-    borderColor: "black",
+    borderStyle: 'solid',
+    borderColor: 'black',
     borderWidth: 1,
-    backgroundColor: "#5a235c",
+    backgroundColor: '#5a235c',
     flex: 1,
-    margin: "0.25%",
+    margin: '0.25%',
   },
   button: {
-    backgroundColor: "#d7b7ed",
+    backgroundColor: '#d7b7ed',
     marginTop: 0,
     marginRight: 0,
     elevation: 4,
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   activated: {
-    backgroundColor: "#7121a6",
-    marginTop: "4%",
-    marginRight: "4%",
+    backgroundColor: '#7121a6',
+    marginTop: '4%',
+    marginRight: '4%',
     elevation: 4,
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   crossed: {
-    backgroundColor: "#580c7a",
-    marginTop: "6%",
-    marginRight: "6%",
+    backgroundColor: '#580c7a',
+    marginTop: '6%',
+    marginRight: '6%',
     elevation: 4,
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   excluded: {
-    backgroundColor: "black",
+    backgroundColor: 'black',
     marginTop: 0,
     marginRight: 0,
     elevation: 4,
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   whiteText: {
-    textAlign: "center",
-    color: "white",
+    textAlign: 'center',
+    color: 'white',
   },
   blackText: {
-    textAlign: "center",
-    color: "black",
+    textAlign: 'center',
+    color: 'black',
   },
 });
 
