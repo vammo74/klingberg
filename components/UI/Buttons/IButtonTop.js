@@ -1,48 +1,70 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 
-class IButtonBottom extends Component {
+class IButtonTop extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      buttonMarginRight: "9%",
+      buttonMarginTop: "5%",
+      buttonMarginBottom: "-1%",
+      buttonMarginRight: "5%",
       buttonColor: "#5f785d",
     };
     this.pressOutHandler = () => {
       if (this.props.started) {
-        this.setState({
-          buttonMarginRight: "5%",
-          buttonColor: "#664040",
+        this.setState(() => {
+          return {
+            buttonMarginTop: "5%",
+            buttonMarginRight: "5%",
+            buttonMarginBottom: "-1%",
+            buttonColor: "#664040",
+          }
         });
       } else {
-        this.setState({
-          buttonMarginRight: "9%",
-          buttonColor: "#5f785d",
+        this.setState(() => {
+          return {
+            buttonMarginTop: "5%",
+            buttonMarginRight: "5%",
+            buttonMarginBottom: "-1%",
+            buttonColor: "#5f785d",
+          }
         });
       }
     };
     this.pressInHandler = () => {
       if (this.props.started) {
-        this.setState({
-          buttonMarginRight: "5%",
-          buttonColor: "#664040",
+        this.setState(() => {
+          return {
+            buttonMarginTop: 0,
+            buttonMarginBottom: "-1%",
+            buttonMarginRight: 0,
+            buttonColor: "#664040",
+          }
         });
       } else {
-        this.setState({
-          buttonMarginRight: 0,
-          buttonColor: "#4f654e",
+        this.setState(() => {
+          return {
+            buttonMarginTop: 0,
+            buttonMarginBottom: "-1%",
+            buttonMarginRight: 0,
+            buttonColor: "#4f654e",
+          }
         });
       }
     };
   }
+
   render() {
     const { title, onPress, onPressIn, onPressOut, started } = this.props;
     const buttonStyles = StyleSheet.create({
       button: {
         backgroundColor: this.state.buttonColor,
+        marginTop: this.state.buttonMarginTop,
+        marginBottom: this.state.buttonMarginBottom,
         marginRight: this.state.buttonMarginRight,
-        borderBottomLeftRadius: 5,
-        borderBottomRightRadius: 5,
+        elevation: this.state.ButtonElevation,
+        borderTopLeftRadius: 5,
+        borderTopRightRadius: 5,
 
         flex: 1,
       },
@@ -76,17 +98,17 @@ const styles = StyleSheet.create({
     borderColor: "black",
     borderRightWidth: 1,
     borderLeftWidth: 1,
-    borderBottomWidth: 1,
-    borderBottomRightRadius: 5,
-    borderBottomLeftRadius: 5,
+    borderTopWidth: 1,
+    borderTopRightRadius: 5,
+    borderTopLeftRadius: 5,
     backgroundColor: "#2d3a2c",
     flex: 1,
-    marginTop: 0,
+    marginTop: "1%",
     marginRight: "1%",
     marginLeft: "1%",
-    marginBottom: "1%",
+    marginBottom: 0,
     alignSelf: "center",
-    borderBottomRightRadius: 9,
+    borderTopLeftRadius: 9,
   },
   text: {
     transform: [
@@ -94,10 +116,10 @@ const styles = StyleSheet.create({
         rotate: "90deg",
       },
     ],
-    textAlign: "left",
+    textAlign: "right",
     fontSize: 30,
     color: "white",
   },
 });
 
-export default IButtonBottom;
+export default IButtonTop;
