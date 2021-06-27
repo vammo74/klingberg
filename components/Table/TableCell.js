@@ -44,13 +44,13 @@ class TableCell extends Component {
     };
   }
 
-  componentDidMount() {
-    console.log("mount table cell")
-  }
+  // componentDidMount() {
+  //   console.log("mount table cell")
+  // }
 
-  componentWillUnmount() {
-    console.log("unmount table cell")
-  }
+  // componentWillUnmount() {
+  //   console.log("unmount table cell")
+  // }
 
   render() {
     const { title, id, buttonFunction } = this.props;

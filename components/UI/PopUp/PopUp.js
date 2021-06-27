@@ -17,12 +17,7 @@ import ScreenPicture from "./ScreenPicture";
 const PopUp = (props) => {
 
   return (
-    <Modal
-    
-    animationType="none"
-    transparent={true}
-    visible={props.popupped}
-    ><View style={styles.container}>
+    <View style={styles.container}>
       <Pressable onPress={props.closePopup} style={styles.underlay}/>
       <View style={styles.window}>
         <ScrollView style={styles.scrollView}>
@@ -63,7 +58,7 @@ const PopUp = (props) => {
         </ScrollView>
         <Button onPress={props.closePopup} title="Close"/>
       </View></View>
-    </Modal>
+    
   );
 };
 

@@ -1,6 +1,6 @@
 import React, { Component, createRef } from 'react';
 
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Button } from 'react-native';
 
 import TableCell from './TableCell';
 import TableButton from './TableButton';
@@ -26,7 +26,7 @@ class Table extends Component {
       for (let x = 9; x >= 0; x--) {
         rowData = [];
         for (let y = 0; y < 10; y++) {
-          _key = x.toString() + y.toString();
+          _key = x.toString() + y.toString() + (Math.random()*100).toString();
           _value = (x + 1) * (y + 1);
           if (x === 0 && y !== 0) {
             _type = 'toggle';
@@ -68,51 +68,7 @@ class Table extends Component {
   }
 
   render() {
-  const generateTable = () => {
-    console.log("running")
-    let tableData = [];
-    let rowData;
-    let _key;
-    let _value;
-    let _type;
-    let _function;
-    let _id = 0;
-    let Obj;
-
-    for (let x = 9; x >= 0; x--) {
-      rowData = [];
-      for (let y = 0; y < 10; y++) {
-        _key = x.toString() + y.toString();
-        _value = (x + 1) * (y + 1);
-        if (x === 0 && y !== 0) {
-          _type = 'toggle';
-          _function = 'vertical';
-        } else if (y === 0 && x !== 0) {
-          _type = 'toggle';
-          _function = 'horizontal';
-        } else if (x === 0 && y === 0) {
-          _type = 'toggle';
-          _function = 'dummy';
-        } else {
-          _type = 'body';
-          _function = 'body';
-        }
-        Obj = {
-          key: _key,
-          value: _value,
-          type: _type,
-          function: _function,
-          id: _id,
-        };
-        rowData.push(Obj);
-        _id += 1;
-      }
-      tableData.push(rowData);
-    }
-    return tableData;
-  };
-
-  tableData = generateTable()
+  
 
   
 
@@ -240,7 +196,7 @@ class Table extends Component {
                   );
                 } else if (obj.function === 'horizontal') {
                   return (
-                    <TableButton
+                    <Button
                       onPress={() => horizontalColorHandler(obj.value)}
                       key={obj.key}
                       id={obj.id}
@@ -252,7 +208,7 @@ class Table extends Component {
                   );
                 } else if (obj.function === 'dummy') {
                   return (
-                    <TableButton
+                    <Button
                       disabled={true}
                       key={obj.key}
                       id={obj.id}

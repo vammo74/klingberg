@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, SafeAreaView, StatusBar, Modal } from 'react-native';
+import { StyleSheet, View, Text, Button, SafeAreaView, StatusBar, Modal } from 'react-native';
 
 import MMKVStorage from "react-native-mmkv-storage";
 import Calculator from "./components/Calculator/Calculator";
@@ -32,7 +32,7 @@ class App extends Component {
         }
 
         this.setState({ savedStats: result });
-        this.setState({level: result.level})
+        this.setState({ level: result.level })
 
         console.log("result")
       });
@@ -46,18 +46,19 @@ class App extends Component {
   }
 
   componentDidMount() {
- //   this.readStats()
+    //   this.readStats()
   }
 
   componentWillUnmount() {
-    this.saveStats()
+    //   this.saveStats()
   }
+
   render() {
 
-    
+
     const passStatsHandler = (passedStats) => {
-      let stats = {level: this.state.level, ...passedStats}
-      this.setState({savedStats: stats});
+      let stats = { level: this.state.level, ...passedStats }
+      this.setState({ savedStats: stats });
       this.saveStats()
     }
 
@@ -75,42 +76,45 @@ class App extends Component {
     };
 
     const updateLevelHandler = (newLevel) => {
-      this.setState({level:newLevel});
+      this.setState({ level: newLevel });
     };
 
 
     const popupOpenHandler = () => {
       console.log("popup")
-      this.setState({popupped: true});
+      this.setState({ popupped: true });
     };
 
     const popupCloseHandler = () => {
       console.log("popup down")
-      this.setState({popupped: false});
+      this.setState({ popupped: false });
     };
 
     return (
       <SafeAreaView style={styles.container}>
-        <Modal>
-        <PopUp popupped={this.state.popupped} closePopup={popupCloseHandler} />
+        <Modal animationType="none"
+          transparent={true}
+          visible={this.state.popupped}
+          style={{ elevation: 10 }}>
+          <PopUp closePopup={popupCloseHandler} />
         </Modal>
-        <Modal>
+        <Modal visible={true}>
           <View style={styles.game}>
             <View style={styles.header}>
-              <View style={styles.title}><Text style={styles.text}>Multiplikation Övning</Text></View>
-              <InfoButton title="i"
-              // onPress={popupOpenHandler}
+
+              <Button title="i"
+                onPress={popupOpenHandler}
               />
             </View>
-            <Table level={this.state.level} key="table"/>
+            <Table />
             <Calculator
               level={this.state.level}
               onUpdateLevel={updateLevelHandler}
               onChangeLevel={(flag) => changeLevelHandler(flag)}
-              onSaveStats={()=>{this.saveStats()}}
-              onClearStats={()=>{this.clearStats()}}
+              onSaveStats={() => { this.saveStats() }}
+              onClearStats={() => { this.clearStats() }}
               onPassStats={passStatsHandler}
-              readStats={()=>{this.readStats()}}
+              readStats={() => { this.readStats() }}
               savedStats={this.state.savedStats}
             />
           </View>

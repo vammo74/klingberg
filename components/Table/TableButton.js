@@ -4,28 +4,28 @@ import { View, Text, StyleSheet, Pressable } from "react-native";
 class TableButton extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      buttonMarginRight: "7%",
-      buttonMarginTop: "7%",
-      buttonColor: "#9377a6",
-      textColor: "#000000",
-    };
-    this.activateCell = () => {
-      this.setState({
-        buttonMarginRight: "7%",
-        buttonMarginTop: "7%",
-        buttonColor: "#7121a6",
-        textColor: "#ffffff",
-      });
-    };
-    this.deactivateCell = () => {
-      this.setState({
-        buttonMarginRight: "7%",
-        buttonMarginTop: "7%",
-        buttonColor: "#9377a6",
-        textColor: "#000000",
-      });
-    };
+    // this.state = {
+    //   buttonMarginRight: "7%",
+    //   buttonMarginTop: "7%",
+    //   buttonColor: "#9377a6",
+    //   textColor: "#000000",
+    // };
+    // this.activateCell = () => {
+    //   this.setState({
+    //     buttonMarginRight: "7%",
+    //     buttonMarginTop: "7%",
+    //     buttonColor: "#7121a6",
+    //     textColor: "#ffffff",
+    //   });
+    // };
+    // this.deactivateCell = () => {
+    //   this.setState({
+    //     buttonMarginRight: "7%",
+    //     buttonMarginTop: "7%",
+    //     buttonColor: "#9377a6",
+    //     textColor: "#000000",
+    //   });
+    // };
   }
   componentDidMount() {
     console.log("mount table button")
@@ -55,9 +55,9 @@ class TableButton extends Component {
     };
     const buttonStyles = StyleSheet.create({
       button: {
-        backgroundColor: this.state.buttonColor,
-        marginTop: this.state.buttonMarginTop,
-        marginRight: this.state.buttonMarginRight,
+        //backgroundColor: this.state.buttonColor,
+        //marginTop: this.state.buttonMarginTop,
+        //marginRight: this.state.buttonMarginRight,
         elevation: 4,
         flex: 1,
         alignContent: "center",
@@ -67,7 +67,7 @@ class TableButton extends Component {
     });
     const textStyles = StyleSheet.create({
       text: {
-        color: this.state.textColor,
+        //color: this.state.textColor,
         textAlign: "center",
       },
     });
