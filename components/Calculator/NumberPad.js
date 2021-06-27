@@ -1,13 +1,13 @@
 import React, { useRef } from "react";
 import { Button, View, StyleSheet } from "react-native";
 
-import LButtonTop from "./LButtonTop";
-import LButtonBottom from "./LButtonBottom";
-import LButtonLeft from "./LButtonLeft";
-import IButtonTop from "./IButtonTop";
-import IButtonBottom from "./IButtonBottom";
-import NormalButton from "./NormalButton";
-import DelButton from "./DelButton";
+import LButtonTop from "../UI/Buttons/LButtonTop";
+import LButtonBottom from "../UI/Buttons/LButtonBottom";
+import LButtonLeft from "../UI/Buttons/LButtonLeft";
+import IButtonTop from "../UI/Buttons/IButtonTop";
+import IButtonBottom from "../UI/Buttons/IButtonBottom";
+import NormalButton from "../UI/Buttons/NormalButton";
+import DelButton from "../UI/Buttons/DelButton";
 
 const NumberPad = (props) => {
   const LBBRef = useRef(null);
@@ -170,23 +170,22 @@ const NumberPad = (props) => {
 
 const styles = StyleSheet.create({
   mainGrid: {
-    flex: 6,
+    flex: 4,
     flexDirection: "column",
-    backgroundColor: "#fff",
+    backgroundColor: "#8d8e96",
     alignItems: "center",
     justifyContent: "center",
+    elevation: 10,
   },
   buttonRow: {
     flex: 1,
     flexDirection: "row",
-    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
   },
   lastButtonRow: {
     flex: 1,
     flexDirection: "row",
-    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
     zIndex: -1,

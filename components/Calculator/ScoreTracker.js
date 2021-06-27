@@ -29,14 +29,7 @@ class ScoreTracker extends Component {
       <View style={styles.scoreTracker}>
         <View style={barFillStyles.barFill}></View>
 
-        <View
-          style={{
-            height: "15%",
-            alignItems: "center",
-            alignContent: "center",
-            justifyContent: "center",
-          }}
-        >
+        <View style={styles.textBox}>
           <Text>Level</Text>
           <Text>{this.props.level}</Text>
         </View>
@@ -47,12 +40,22 @@ class ScoreTracker extends Component {
 
 const styles = StyleSheet.create({
   scoreTracker: {
+    backgroundColor: "#dae0db",
     borderStyle: "solid",
     borderWidth: 1,
     borderColor: "black",
     justifyContent: "flex-end",
     flexDirection: "column",
-    flex: 1,
+    flex: 1.4,
+    elevation: 5,
+    marginRight: "10%",
+  },
+  textBox: {
+    height: "15%",
+    alignItems: "center",
+    alignContent: "center",
+    justifyContent: "center",
+    backgroundColor: "#aeb5b0",
   },
 });
 

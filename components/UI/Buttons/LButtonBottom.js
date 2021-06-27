@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginBottom: "1%",
     marginRight: "1%",
-    marginLeft: "8%",
+    marginLeft: "5%",
     marginTop: "1%",
     borderBottomRightRadius: 9,
     zIndex: -1,

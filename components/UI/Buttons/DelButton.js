@@ -1,35 +1,42 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 
-class LButtonTop extends Component {
+class DelButton extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      buttonMarginRight: "5%",
       buttonMarginTop: "5%",
-      buttonColor: "#00e673",
-    };
-    this.pressOutHandler = () => {
-      this.setState({
-        buttonMarginTop: "5%",
-        buttonColor: "#00e673",
-      });
-    };
-    this.pressInHandler = () => {
-      this.setState({
-        buttonMarginTop: 0,
-        buttonColor: "#00cc66",
-      });
+      buttonColor: "#f77474",
+      ButtonElevation: 4,
     };
   }
   render() {
-    const { title, onPress, onPressIn, onPressOut } = this.props;
+    const pressOutHandler = () => {
+      this.setState({
+        buttonMarginRight: "5%",
+        buttonMarginTop: "5%",
+        buttonColor: "#f77474",
+        ButtonElevation: 4,
+      });
+    };
+    const pressInHandler = () => {
+      this.setState({
+        buttonMarginRight: 0,
+        buttonMarginTop: 0,
+        buttonColor: "#f55656",
+        ButtonElevation: 0,
+      });
+    };
+
+    const { title, onPress } = this.props;
     const buttonStyles = StyleSheet.create({
       button: {
         backgroundColor: this.state.buttonColor,
         marginTop: this.state.buttonMarginTop,
+        marginRight: this.state.buttonMarginRight,
         elevation: this.state.ButtonElevation,
-        borderTopLeftRadius: 5,
-        borderBottomLeftRadius: 5,
+        borderRadius: 5,
 
         flex: 1,
       },
@@ -38,14 +45,8 @@ class LButtonTop extends Component {
     return (
       <Pressable
         onPress={onPress}
-        onPressIn={() => {
-          this.pressInHandler();
-          onPressIn();
-        }}
-        onPressOut={() => {
-          this.pressOutHandler();
-          onPressOut();
-        }}
+        onPressIn={pressInHandler}
+        onPressOut={pressOutHandler}
         style={styles.container}
       >
         <View style={buttonStyles.button}>
@@ -60,26 +61,22 @@ const styles = StyleSheet.create({
   container: {
     borderStyle: "solid",
     borderColor: "black",
-    borderLeftWidth: 1,
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-    borderBottomLeftRadius: 5,
-    borderTopLeftRadius: 5,
-    backgroundColor: "#006633",
-    flex: 1,
+    borderWidth: 1,
+    borderRadius: 5,
+    backgroundColor: "#790606",
+    flex: 0.95,
     marginBottom: "1%",
     marginLeft: "1%",
-    marginRight: "-10%",
+    marginRight: "1%",
     marginTop: "1%",
-    justifyContent: "center",
     borderTopLeftRadius: 9,
+    borderBottomRightRadius: 9,
   },
   text: {
-    color: "black",
-    textAlign: "center",
     fontSize: 30,
-    marginRight: "-100%",
+    textAlign: "center",
+    color: "black",
   },
 });
 
-export default LButtonTop;
+export default DelButton;

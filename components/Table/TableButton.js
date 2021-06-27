@@ -1,82 +1,74 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 
-class TableButton extends Component {
+class TableButton extends PureComponent {
   constructor(props) {
     super(props);
+
     this.state = {
-      buttonMarginRight: "7%",
-      buttonMarginTop: "7%",
-      buttonColor: "#9377a6",
-      textColor: "#000000",
+      buttonState: "normal",
     };
-    this.activateCell = () => {
-      this.setState({
-        buttonMarginRight: "7%",
-        buttonMarginTop: "7%",
-        buttonColor: "#7121a6",
-        textColor: "#ffffff",
-      });
-    };
-    this.deactivateCell = () => {
-      this.setState({
-        buttonMarginRight: "7%",
-        buttonMarginTop: "7%",
-        buttonColor: "#9377a6",
-        textColor: "#000000",
-      });
-    };
+
+    this.activateCell = this.activateCell.bind(this);
   }
+
+  activateCell(flag) {
+    this.setState(() => {
+      return { buttonState: flag };
+    });
+  }
+
+  componentDidMount() {}
+
+  componentWillUnmount() {}
+
   render() {
-    const { title, id, buttonFunction, onPress, disabled } = this.props;
     const pressInHandler = () => {
-      this.setState({
-        buttonMarginRight: 0,
-        buttonMarginTop: 0,
-        buttonColor: "#9377a6",
-        textColor: "#000000",
-      });
+      this.activateCell("inpressed");
     };
+
     const pressOutHandler = () => {
-      this.setState({
-        buttonMarginRight: "7%",
-        buttonMarginTop: "7%",
-        buttonColor: "#7121a6",
-        textColor: "#ffffff",
-      });
+      this.activateCell("outpressed");
     };
-    const buttonStyles = StyleSheet.create({
-      button: {
-        backgroundColor: this.state.buttonColor,
-        marginTop: this.state.buttonMarginTop,
-        marginRight: this.state.buttonMarginRight,
-        elevation: 4,
-        flex: 1,
-        alignContent: "center",
-        justifyContent: "center",
-        borderRadius: 3,
-      },
-    });
-    const textStyles = StyleSheet.create({
-      text: {
-        color: this.state.textColor,
-        textAlign: "center",
-      },
-    });
+
+    let buttonForm;
+    if (this.state.buttonState === "inpressed") {
+      buttonForm = (
+        <View style={styles.inpressed}>
+          <Text style={styles.blackText}>{this.props.title}</Text>
+        </View>
+      );
+    } else if (this.state.buttonState === "activated") {
+      buttonForm = (
+        <View style={styles.activated}>
+          <Text style={styles.whiteText}>{this.props.title}</Text>
+        </View>
+      );
+    } else if (this.state.buttonState === "outpressed") {
+      buttonForm = (
+        <View style={styles.outpressed}>
+          <Text style={styles.whiteText}>{this.props.title}</Text>
+        </View>
+      );
+    } else {
+      buttonForm = (
+        <View style={styles.button}>
+          <Text style={styles.blackText}>{this.props.title}</Text>
+        </View>
+      );
+    }
 
     return (
       <Pressable
         style={styles.container}
-        buttonFunction={buttonFunction}
-        id={id}
-        onPress={onPress}
-        onPressIn={!disabled && pressInHandler}
-        onPressOut={!disabled && pressOutHandler}
-        disabled={disabled}
+        buttonFunction={this.props.buttonFunction}
+        id={this.props.id}
+        onPress={this.props.onPress}
+        onPressIn={!this.props.disabled && pressInHandler}
+        onPressOut={!this.props.disabled && pressOutHandler}
+        disabled={this.props.disabled}
       >
-        <View style={buttonStyles.button}>
-          <Text style={textStyles.text}>{title}</Text>
-        </View>
+        {buttonForm}
       </Pressable>
     );
   }
@@ -93,6 +85,54 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     borderTopLeftRadius: 5,
     borderBottomRightRadius: 5,
+  },
+  button: {
+    backgroundColor: "#9377a6",
+    marginTop: "7%",
+    marginRight: "7%",
+    borderRadius: 3,
+    elevation: 4,
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  activated: {
+    backgroundColor: "#7121a6",
+    marginTop: "7%",
+    marginRight: "7%",
+    borderRadius: 3,
+    elevation: 4,
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  inpressed: {
+    backgroundColor: "#9377a6",
+    marginTop: 0,
+    marginRight: 0,
+    borderRadius: 3,
+    elevation: 4,
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  outpressed: {
+    backgroundColor: "#7121a6",
+    marginTop: "7%",
+    marginRight: "7%",
+    borderRadius: 3,
+    elevation: 4,
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  whiteText: {
+    textAlign: "center",
+    color: "white",
+  },
+  blackText: {
+    textAlign: "center",
+    color: "black",
   },
 });
 
