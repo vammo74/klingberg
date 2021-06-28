@@ -37,10 +37,8 @@ class ScoreTracker extends Component {
     return (
       <View style={styles.scoreTracker}>
         <View style={barFillStyles.barFill} />
-
         <View style={styles.textBox}>
-          <Text>Level</Text>
-          <Text>{this.props.level}</Text>
+          <Text style={styles.text}>{this.props.level}</Text>
         </View>
       </View>
     );
@@ -65,6 +63,10 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     justifyContent: 'center',
     backgroundColor: '#aeb5b0',
+  },
+  text: {
+    fontSize: 25,
+    fontWeight: 'bold',
   },
 });
 

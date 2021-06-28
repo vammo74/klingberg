@@ -1,9 +1,11 @@
 import React, {Component, createRef} from 'react';
-import {StyleSheet, View, Button} from 'react-native';
+import {StyleSheet, View} from 'react-native';
+
 import NumberPad from './NumberPad';
 import Screen from './Screen';
 import ScoreTracker from './ScoreTracker';
 import Timer from './Timer';
+import InfoButton from '../UI/Buttons/InfoButton';
 
 class Calculator extends Component {
   constructor(props) {
@@ -94,14 +96,6 @@ class Calculator extends Component {
     console.log('unmount Calculator');
   }
   render() {
-    const passStatsHandler = () => {
-      let statsJson = {
-        products: this.state.products,
-        levelAttempts: this.state.levelAttempts,
-      };
-      this.props.onPassStats(statsJson);
-    };
-
     const _generateProducts = () => {
       const newProducts = [];
       for (let n = 2; n < 11; n++) {
@@ -299,7 +293,7 @@ class Calculator extends Component {
               />
             </View>
             <View style={styles.infoButton}>
-              <Button onPress={this.props.onGetInfo} title="info" />
+              <InfoButton onPress={this.props.onGetInfo} title="info" />
             </View>
           </View>
           <NumberPad

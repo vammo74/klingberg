@@ -13,7 +13,6 @@ import MMKVStorage from 'react-native-mmkv-storage';
 import Calculator from './components/Calculator/Calculator';
 import Table from './components/Table/Table';
 import PopUp from './components/UI/PopUp/PopUp';
-import InfoButton from './components/UI/Buttons/InfoButton';
 
 const MMKV = new MMKVStorage.Loader().initialize(); // Returns an MMKV Instance
 
