@@ -6,11 +6,10 @@ import {
   Button,
   ScrollView,
   Pressable,
+  Image,
 } from 'react-native';
 
 import ButtonPicture from './ButtonPicture';
-import TablePicture from './TablePicture';
-import ScreenPicture from './ScreenPicture';
 
 const PopUp = props => {
   useEffect(() => {
@@ -25,23 +24,43 @@ const PopUp = props => {
       <Pressable onPress={props.closePopup} style={styles.underlay} />
       <View style={styles.window}>
         <ScrollView style={styles.scrollView}>
-          <Text style={styles.h1}>Multiplikation Övningar:</Text>
+          <Text style={styles.h1}>Multiplikation Övningar</Text>
           <Text style={styles.h2}>
             Lär dig att kommer ihåg multiplikationstabellen.
           </Text>
           <Text style={styles.h3}>Premiss</Text>
           <Text style={styles.p}>ToDo....</Text>
+          <Text style={styles.h3}>UI</Text>
+          <Text style={styles.p}>ToDo....</Text>
+          <View style={styles.appImageContainer}>
+            <Image
+              source={require('../graphics/apppicture.jpg')}
+              style={styles.image}
+            />
+          </View>
           <Text style={styles.h3}>Skärm</Text>
-          <ScreenPicture />
+          <View style={styles.imageContainer}>
+            <Image
+              source={require('../graphics/screenpicture.jpg')}
+              style={styles.image}
+            />
+          </View>
           <Text style={styles.p}>ToDo....</Text>
           <Text style={styles.h3}>Number Pad</Text>
+          <View style={styles.imageContainer}>
+            <Image
+              source={require('../graphics/numberpadpicture.jpg')}
+              style={styles.image}
+            />
+          </View>
           <Text style={styles.p}>ToDo....</Text>
           <Text style={styles.h3}>Interaktiva tabellen</Text>
-          <TablePicture num={1} />
-          <Text style={styles.p}>ToDo....</Text>
-          <TablePicture num={2} />
-          <Text style={styles.p}>ToDo....</Text>
-          <TablePicture num={3} />
+          <View style={styles.imageContainer}>
+            <Image
+              source={require('../graphics/tablepicture.jpg')}
+              style={styles.image}
+            />
+          </View>
           <Text style={styles.p}>ToDo....</Text>
           <Text style={styles.h3}>Nivå och Timer inställning</Text>
           <Text style={styles.p}>
@@ -76,7 +95,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   window: {
-    backgroundColor: '#fff',
+    backgroundColor: '#ccc',
     width: '85%',
     height: '85%',
     alignSelf: 'center',
@@ -87,6 +106,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   scrollView: {
+    backgroundColor: '#fff',
     margin: '5%',
   },
   panel: {
@@ -101,6 +121,20 @@ const styles = StyleSheet.create({
     opacity: 0.5,
     backgroundColor: '#000',
   },
+  image: {
+    flex: 1,
+    width: undefined,
+    height: undefined,
+    resizeMode: 'contain',
+  },
+  imageContainer: {
+    flex: 1,
+    height: 300,
+  },
+  appImageContainer: {
+    flex: 1,
+    height: 400,
+  },
   h1: {
     color: '#19386b',
     fontSize: 25,
@@ -114,7 +148,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginBottom: 6,
     marginTop: 2,
-    fontStyle: 'italics',
+    fontStyle: 'italic',
     textAlign: 'center',
   },
   h3: {

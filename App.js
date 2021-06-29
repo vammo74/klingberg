@@ -195,6 +195,7 @@ class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#8d8e96',
   },
   popupModal: {
     elevation: 10,
