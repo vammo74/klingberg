@@ -26,6 +26,39 @@ const PopUp = props => {
       <View style={styles.window}>
         <ScrollView style={styles.scrollView}>
           <Text style={styles.h1}>Multiplikation Övningar:</Text>
+          <Text style={styles.h2}>
+            Lär dig att kommer ihåg multiplikationstabellen.
+          </Text>
+          <Text style={styles.h3}>Premiss</Text>
+          <Text style={styles.p}>ToDo....</Text>
+          <Text style={styles.h3}>Skärm</Text>
+          <ScreenPicture />
+          <Text style={styles.p}>ToDo....</Text>
+          <Text style={styles.h3}>Number Pad</Text>
+          <Text style={styles.p}>ToDo....</Text>
+          <Text style={styles.h3}>Interaktiva tabellen</Text>
+          <TablePicture num={1} />
+          <Text style={styles.p}>ToDo....</Text>
+          <TablePicture num={2} />
+          <Text style={styles.p}>ToDo....</Text>
+          <TablePicture num={3} />
+          <Text style={styles.p}>ToDo....</Text>
+          <Text style={styles.h3}>Nivå och Timer inställning</Text>
+          <Text style={styles.p}>
+            Med programmet stoppat kan man ändra nivån och timerhastighet.
+          </Text>
+          <Text style={styles.p}>
+            <Text style={styles.bold}>Nivån</Text> ändras genom att skiva in 13
+            och den önskade nivå (1 till 9). Till exempel, för att välja nivå 4,
+            tryck:
+          </Text>
+          <ButtonPicture combo="134" />
+          <Text style={styles.p}>
+            <Text style={styles.bold}>Timerhastighet</Text> ändras genom att
+            skriva in 77 och önskade nivån (1 till 9), 1 är långsam och 9
+            snabbt. Till exempel, för att välja nivå 4, tryck:
+          </Text>
+          <ButtonPicture combo="774" />
         </ScrollView>
         <View style={styles.panel}>
           <Button onPress={props.closePopup} title="Close" />
@@ -81,7 +114,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginBottom: 6,
     marginTop: 2,
-    fontStyle: 'italic',
+    fontStyle: 'italics',
     textAlign: 'center',
   },
   h3: {
