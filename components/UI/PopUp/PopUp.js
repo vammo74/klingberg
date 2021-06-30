@@ -29,7 +29,22 @@ const PopUp = props => {
             Lär dig att kommer ihåg multiplikationstabellen.
           </Text>
           <Text style={styles.h3}>Premiss</Text>
-          <Text style={styles.p}>ToDo....</Text>
+          <Text style={styles.p}>
+            Om man ska klara skolans matte måste man känna till vissa mönster.
+            En av de viktigaste mönstrerna för låg- och mellanstadie elever är
+            de multiplikationstabellerna (gångertabbellerna). Utan det här
+            igenkännadet blir det svårt senare att klara av bl.a. division och
+            bråk.
+          </Text>
+          <Text style={styles.p}>
+            Det är inte konstigt att vissa ha brister i korttidsminne vid
+            ålderna där vi lära oss multiplikationstabellerna (dvs lågstadiet):
+            skolan tar för det mesta bara hänsyn till ålder inte barnets
+            nuvarande utveckling.
+          </Text>
+          <Text style={styles.p}>
+            Det här appen 
+          </Text>
           <Text style={styles.h3}>UI</Text>
           <Text style={styles.p}>ToDo....</Text>
           <View style={styles.appImageContainer}>
@@ -120,6 +135,15 @@ const styles = StyleSheet.create({
     left: 0,
     opacity: 0.5,
     backgroundColor: '#000',
+  },
+  settingsOn: {
+    flex: 1,
+    width: '100%',
+  },
+  settingsOff: {
+    flex: 1,
+    width: null,
+    height: null,
   },
   image: {
     flex: 1,

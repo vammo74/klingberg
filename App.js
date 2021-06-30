@@ -114,7 +114,7 @@ class App extends Component {
 
   _handleAppStateChange = nextAppState => {
     if (nextAppState === 'background' || nextAppState === 'inactive') {
-      this.calculatorRef.passStats();
+      this.calculatorRef.current.passStats();
       this.saveStats();
     }
   };
@@ -158,7 +158,18 @@ class App extends Component {
       this.setState({level: newLevel});
       this.tableRef.current.updateTableLevel(newLevel);
     };
-    const incrementLevelHandler = () => {};
+    const incrementLevelHandler = flag => {
+      if (flag === 'up') {
+        this.setState(state => {
+          return {level: state.level + 1};
+        });
+      } else {
+        this.setState(state => {
+          return {level: state.level - 1};
+        });
+      }
+      this.tableRef.current.updateTableLevel(this.state.level);
+    };
 
     return (
       <SafeAreaView style={styles.container}>
@@ -166,6 +177,7 @@ class App extends Component {
           <View style={styles.game}>
             <Table level={this.state.level} ref={this.tableRef} />
             <Calculator
+              ref={this.calculatorRef}
               onIncrementLevel={incrementLevelHandler}
               onUpdateLevel={updateLevelHandler}
               level={this.state.level}

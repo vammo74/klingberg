@@ -115,12 +115,12 @@ class Calculator extends Component {
       let productsArray = [...this.state.products];
       if (productsArray.length < 1) {
         productsArray = _generateProducts();
-        //    this.props.onChangeLevel("up");
+        this.props.onIncrementLevel('up');
       }
       if (productsArray.length >= 50) {
         productsArray = _generateProducts();
 
-        //      this.props.onChangeLevel("down");
+        this.props.onIncrementLevel('down');
       }
       const randomIndex = Math.floor(Math.random() * productsArray.length);
       const newProduct = productsArray.splice(randomIndex, 1);
@@ -264,7 +264,7 @@ class Calculator extends Component {
         this.setState({levelAttempts: false});
       } else {
         this.setState({levelAttempts: true});
-        this.props.onChangeLevel('down');
+        this.props.onIncrementLevel('down');
       }
     };
 
