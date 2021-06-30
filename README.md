@@ -52,11 +52,25 @@ Man kommer tillbaka till det här fönstret genom att trycka på
 "info". Här kan du spara nivån och kvarvarande produkter ("save")
 och dessutom radera nivån och kvarvarande produkter ur minne
 ("clear"). Obs. Om du radera av misstag tryck på spara direkt
-efter och och de inte kommer att raderas.
+efter och informationen kommer inte att raderas.
 
 ## Interaktiva tabellen
 
+Interaktiva tabellen innehåller tre olika delar. Tabellsknapper
+(mörk lila), tabellceller (ljus lila) och glömde celler (svarta).
+
 ![alt text](https://github.com/vammo74/klingberg/blob/main/components/UI/graphics/tablepicture.jpg?raw=true)
+
+Glömde celler är baserat på din nivå: om man är bekväm med fyrans
+tabell börjar man på nivå 4 och alla tal fram till 4 gånger 4 är
+gömda (läsa vidare om man vill veta hur man ändra nivån).
+
+Om man inte veta ett svar kan man leta reda på det i tabellen. Om
+man trycka på en tabellknapp kommer hela raden eller kolumnen att
+ändra färg. Om man till exempel söker 6 gånger 6 kan man trycker
+på 6 på den horizontala axeln och 6 på den vertikala axeln. Talet
+som finns i både linjer av färgade celler (och är en lite grann
+mörkare) är ditt önskade talet.
 
 ## Nivå och Timer inställning
 
