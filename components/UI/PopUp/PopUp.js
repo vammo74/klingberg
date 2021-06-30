@@ -48,7 +48,7 @@ const PopUp = props => {
               professor Torkel Klingberg.
             </Text>
             <Text>
-              Obs. det här är min tolkning av hans arbete: fel eller
+              Obs. det här är min tolkning: fel eller
               misforståelse kan och kommer att ske.
             </Text>
           </View>

@@ -19,7 +19,7 @@ nuvarande utveckling.
 
 Det här appen är utvecklat efter en idé från en svensk pedagogik professor Torkel Klingberg.
 
-Obs. det är <ins>min tolkning</ins> av hans arbete: fel eller misforståelse kan och kommer att ske.
+Obs. det är <ins>min tolkning</ins>: fel eller misforståelse kan och kommer att ske.
 
 ## UI
 
