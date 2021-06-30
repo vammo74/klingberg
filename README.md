@@ -2,7 +2,7 @@
 
 Multipliction training app for primary school age children.
 
-Sorry from now on it is Swedish...
+Sorry from now on it is in Swedish...
 
 ## Premiss
 
