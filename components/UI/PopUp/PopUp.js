@@ -48,8 +48,8 @@ const PopUp = props => {
               professor Torkel Klingberg.
             </Text>
             <Text>
-              Obs. det här är min tolkning: fel eller
-              misforståelse kan och kommer att ske.
+              Obs. det här är min tolkning: fel eller misforståelse kan och
+              kommer att ske.
             </Text>
           </View>
           <View style={styles.section}>
@@ -85,13 +85,27 @@ const PopUp = props => {
           </View>
           <View style={styles.section}>
             <Text style={styles.h3}>Number Pad</Text>
+            <Text style={styles.p}>
+              Tryck på "start" och man får en produkt på produktskärm. Knappa in
+              svaret och tryck på "enter". Om man trycka fel kan man använda
+              "del" (delete). Om man vill pausa kan man trycka på "stop". Nivå
+              och kvarvarande produkter (men inte själva produkten) sparas både
+              när man trycker på "stop" och när man stänger av appen.
+            </Text>
             <View style={styles.imageContainer}>
               <Image
                 source={require('../graphics/numberpadpicture.jpg')}
                 style={styles.image}
               />
             </View>
-            <Text style={styles.p}>ToDo....</Text>
+
+            <Text>
+              Man kommer tillbaka till det här fönstret genom att trycka på
+              "info". Här kan du spara nivån och kvarvarande produkter ("save")
+              och dessutom radera nivån och kvarvarande produkter ur minne
+              ("clear"). Obs. Om du radera av misstag tryck på spara direkt
+              efter och och de inte kommer att raderas.
+            </Text>
           </View>
           <View style={styles.section}>
             <Text style={styles.h3}>Interaktiva tabellen</Text>
