@@ -54,7 +54,10 @@ const PopUp = props => {
           </View>
           <View style={styles.section}>
             <Text style={styles.h3}>UI</Text>
-            <Text style={styles.p}>ToDo....</Text>
+            <Text style={styles.p}>
+              Appen är uppbyggd av en skärm, en interaktiv multiplikationstabell
+              och en numberpad.
+            </Text>
             <View style={styles.appImageContainer}>
               <Image
                 source={require('../graphics/apppicture.jpg')}
@@ -64,13 +67,21 @@ const PopUp = props => {
           </View>
           <View style={styles.section}>
             <Text style={styles.h3}>Skärm</Text>
+            <Text style={styles.p}>
+              Skärmen innerhåller en skärm för produkten som sökas, en skärm som
+              svaret ska skrivas in, en timer och en indikator på nuvarande nivå
+              och kvarvarande frågor.
+            </Text>
             <View style={styles.imageContainer}>
               <Image
                 source={require('../graphics/screenpicture.jpg')}
                 style={styles.image}
               />
             </View>
-            <Text style={styles.p}>ToDo....</Text>
+            <Text style={styles.p}>
+              Timer och nivå kan justeras vid behov (se botten av det här
+              skrollande fönstret).
+            </Text>
           </View>
           <View style={styles.section}>
             <Text style={styles.h3}>Number Pad</Text>

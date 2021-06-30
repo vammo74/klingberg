@@ -24,3 +24,23 @@ Obs. det är <ins>min tolkning</ins> av hans arbete: fel eller misforståelse ka
 ## UI
 
 ![alt text](https://github.com/vammo74/klingberg/blob/main/components/UI/graphics/apppicture.jpg?raw=true)
+
+## Skärm
+
+Skärmen innerhåller en skärm för produkten som sökas, en skärm som
+svaret ska skrivas in, en timer och en indikator på nuvarande nivå
+och kvarvarande frågor.
+
+![alt text](https://github.com/vammo74/klingberg/blob/main/components/UI/graphics/screenpicture.jpg?raw=true)
+
+Timer och nivå kan justeras vid behov (se botten av README:n).
+
+## Numberpad
+
+![alt text](https://github.com/vammo74/klingberg/blob/main/components/UI/graphics/numberpadpicture.jpg?raw=true)
+
+## Interaktiva tabellen
+
+![alt text](https://github.com/vammo74/klingberg/blob/main/components/UI/graphics/tablepicture.jpg?raw=true)
+
+## Nivå och Timer inställning
