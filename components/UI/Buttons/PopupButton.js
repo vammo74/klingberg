@@ -23,21 +23,20 @@ const styles = StyleSheet.create({
   button: {
     flex: 1,
     backgroundColor: '#00b3b3',
-
     justifyContent: 'center',
     alignContent: 'center',
     borderWidth: 2,
     borderRadius: 5,
     borderColor: 'white',
-
     elevation: 5,
   },
   text: {
     flex: 1,
+    paddingHorizontal: '5%',
     textAlign: 'center',
-    marginTop: '10%',
+    textAlignVertical: 'center',
     fontWeight: 'bold',
-    fontSize: 25,
+    fontSize: 15,
     fontFamily: 'serif',
     color: '#fff',
   },

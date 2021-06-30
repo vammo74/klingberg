@@ -3,12 +3,14 @@ import {
   StyleSheet,
   View,
   Text,
+  Alert,
   Button,
   ScrollView,
   Pressable,
   Image,
 } from 'react-native';
 
+import PopupButton from '../Buttons/PopupButton';
 import ButtonPicture from './ButtonPicture';
 
 const PopUp = props => {
@@ -18,6 +20,20 @@ const PopUp = props => {
       console.log('unmount popup');
     };
   }, []);
+
+  const clearHandler = () => {
+    Alert.alert(
+      'Do you realy want to clear?',
+      'Do you realy want to clear?'[
+        ({
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {text: 'OK', onPress: () => console.log('OK Pressed')})
+      ],
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -152,9 +168,15 @@ const PopUp = props => {
           </View>
         </ScrollView>
         <View style={styles.panel}>
-          <Button onPress={props.closePopup} title="Close" />
-          <Button onPress={props.onClear} title="Clear" />
-          <Button onPress={props.onSave} title="Save" />
+          <View style={styles.button}>
+            <PopupButton onPress={props.closePopup} title="Close" />
+          </View>
+          <View style={styles.button}>
+            <PopupButton onPress={props.onSave} title="Save" />
+          </View>
+          <View style={styles.button}>
+            <PopupButton onPress={clearHandler} title="Clear" />
+          </View>
         </View>
       </View>
     </View>
@@ -180,10 +202,20 @@ const styles = StyleSheet.create({
   scrollView: {
     backgroundColor: '#fff',
     margin: '5%',
+    flex: 5,
   },
   panel: {
+    flex: 0.07,
     flexDirection: 'row',
+    width: '100%',
+    marginBottom: 5,
   },
+  button: {
+    flex: 1,
+    marginRight: '2%',
+    marginLeft: '2%',
+  },
+
   underlay: {
     position: 'absolute',
     top: 0,
