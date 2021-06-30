@@ -44,3 +44,7 @@ Timer och nivå kan justeras vid behov (se botten av README:n).
 ![alt text](https://github.com/vammo74/klingberg/blob/main/components/UI/graphics/tablepicture.jpg?raw=true)
 
 ## Nivå och Timer inställning
+
+![alt text](https://github.com/vammo74/klingberg/blob/main/components/UI/graphics/levelchange.jpg?raw=true)
+
+![alt text](https://github.com/vammo74/klingberg/blob/main/components/UI/graphics/timer.jpg?raw=true)
