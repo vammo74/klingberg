@@ -52,7 +52,7 @@ nivå 4, tryck:
 
 
 Timerhastighet ändras genom att
-skriva in "7", "7" och önskade nivån ("1" till "9"), 1 är långsam och 9
+skriva in "7", "7" och önskade nivån ("1" till "9"), "1" är långsam och "9"
 snabbt. Till exempel, för att välja nivå 4, tryck:
 
 ![alt text](https://github.com/vammo74/klingberg/blob/main/components/UI/graphics/timer.jpg?raw=true)
