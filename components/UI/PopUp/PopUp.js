@@ -43,7 +43,8 @@ const PopUp = props => {
             nuvarande utveckling.
           </Text>
           <Text style={styles.p}>
-            Det här appen 
+            Det här appen är utvecklat efter en idé från en svensk pedagogik
+            professor Torkel Klingberg (men det är min tolkning av hans arbete).
           </Text>
           <Text style={styles.h3}>UI</Text>
           <Text style={styles.p}>ToDo....</Text>

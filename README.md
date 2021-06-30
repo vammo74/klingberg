@@ -17,6 +17,8 @@ Det är inte konstigt att vissa ha brister i korttidsminne vid
 skolan tar för det mesta bara hänsyn till ålder inte barnets
 nuvarande utveckling.
 
+Det här appen är utvecklat efter en idé från en svensk pedagogik professor Torkel Klingberg (men det är <ins>min tolkning</ins> av hans arbete).
+
 ## UI
 
 ![alt text](https://github.com/vammo74/klingberg/blob/main/components/UI/graphics/apppicture.jpg?raw=true)
