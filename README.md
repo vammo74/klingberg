@@ -17,7 +17,6 @@ Det är inte konstigt att vissa ha brister i korttidsminne vid
 skolan tar för det mesta bara hänsyn till ålder inte barnets
 nuvarande utveckling.
 
-
 ## UI
 
-![alt text](https://github.com/vammo74/klingberg/main/components/UI/graphics/apppicture.jpg?raw=true)
+![alt text](https://github.com/vammo74/klingberg/blob/main/components/UI/graphics/apppicture.jpg?raw=true)
