@@ -28,72 +28,88 @@ const PopUp = props => {
           <Text style={styles.h2}>
             Lär dig att kommer ihåg multiplikationstabellen.
           </Text>
-          <Text style={styles.h3}>Premiss</Text>
-          <Text style={styles.p}>
-            Om man ska klara skolans matte måste man känna till vissa mönster.
-            En av de viktigaste mönstrerna för låg- och mellanstadie elever är
-            de multiplikationstabellerna (gångertabbellerna). Utan det här
-            igenkännadet blir det svårt senare att klara av bl.a. division och
-            bråk.
-          </Text>
-          <Text style={styles.p}>
-            Det är inte konstigt att vissa ha brister i korttidsminne vid
-            ålderna där vi lära oss multiplikationstabellerna (dvs lågstadiet):
-            skolan tar för det mesta bara hänsyn till ålder inte barnets
-            nuvarande utveckling.
-          </Text>
-          <Text style={styles.p}>
-            Det här appen är utvecklat efter en idé från en svensk pedagogik
-            professor Torkel Klingberg (men det är min tolkning av hans arbete).
-          </Text>
-          <Text style={styles.h3}>UI</Text>
-          <Text style={styles.p}>ToDo....</Text>
-          <View style={styles.appImageContainer}>
-            <Image
-              source={require('../graphics/apppicture.jpg')}
-              style={styles.image}
-            />
+          <View style={styles.section}>
+            <Text style={styles.h3}>Premiss</Text>
+            <Text style={styles.p}>
+              Om man ska klara skolans matte måste man känna till vissa mönster.
+              En av de viktigaste mönstrerna för låg- och mellanstadie elever är
+              de multiplikationstabellerna (gångertabbellerna). Utan det här
+              igenkännadet blir det svårt senare att klara av bl.a. division och
+              bråk.
+            </Text>
+            <Text style={styles.p}>
+              Det är inte konstigt att vissa ha brister i korttidsminne vid
+              ålderna där vi lära oss multiplikationstabellerna (dvs
+              lågstadiet): skolan tar för det mesta bara hänsyn till ålder inte
+              barnets nuvarande utveckling.
+            </Text>
+            <Text style={styles.p}>
+              Det här appen är utvecklat efter en idé från en svensk pedagogik
+              professor Torkel Klingberg.
+            </Text>
+            <Text>
+              Obs. det här är min tolkning av hans arbete: fel eller
+              misforståelse kan och kommer att ske.
+            </Text>
           </View>
-          <Text style={styles.h3}>Skärm</Text>
-          <View style={styles.imageContainer}>
-            <Image
-              source={require('../graphics/screenpicture.jpg')}
-              style={styles.image}
-            />
+          <View style={styles.section}>
+            <Text style={styles.h3}>UI</Text>
+            <Text style={styles.p}>ToDo....</Text>
+            <View style={styles.appImageContainer}>
+              <Image
+                source={require('../graphics/apppicture.jpg')}
+                style={styles.image}
+              />
+            </View>
           </View>
-          <Text style={styles.p}>ToDo....</Text>
-          <Text style={styles.h3}>Number Pad</Text>
-          <View style={styles.imageContainer}>
-            <Image
-              source={require('../graphics/numberpadpicture.jpg')}
-              style={styles.image}
-            />
+          <View style={styles.section}>
+            <Text style={styles.h3}>Skärm</Text>
+            <View style={styles.imageContainer}>
+              <Image
+                source={require('../graphics/screenpicture.jpg')}
+                style={styles.image}
+              />
+            </View>
+            <Text style={styles.p}>ToDo....</Text>
           </View>
-          <Text style={styles.p}>ToDo....</Text>
-          <Text style={styles.h3}>Interaktiva tabellen</Text>
-          <View style={styles.imageContainer}>
-            <Image
-              source={require('../graphics/tablepicture.jpg')}
-              style={styles.image}
-            />
+          <View style={styles.section}>
+            <Text style={styles.h3}>Number Pad</Text>
+            <View style={styles.imageContainer}>
+              <Image
+                source={require('../graphics/numberpadpicture.jpg')}
+                style={styles.image}
+              />
+            </View>
+            <Text style={styles.p}>ToDo....</Text>
           </View>
-          <Text style={styles.p}>ToDo....</Text>
-          <Text style={styles.h3}>Nivå och Timer inställning</Text>
-          <Text style={styles.p}>
-            Med programmet stoppat kan man ändra nivån och timerhastighet.
-          </Text>
-          <Text style={styles.p}>
-            <Text style={styles.bold}>Nivån</Text> ändras genom att skiva in 13
-            och den önskade nivå (1 till 9). Till exempel, för att välja nivå 4,
-            tryck:
-          </Text>
-          <ButtonPicture combo="134" />
-          <Text style={styles.p}>
-            <Text style={styles.bold}>Timerhastighet</Text> ändras genom att
-            skriva in 77 och önskade nivån (1 till 9), 1 är långsam och 9
-            snabbt. Till exempel, för att välja nivå 4, tryck:
-          </Text>
-          <ButtonPicture combo="774" />
+          <View style={styles.section}>
+            <Text style={styles.h3}>Interaktiva tabellen</Text>
+            <View style={styles.imageContainer}>
+              <Image
+                source={require('../graphics/tablepicture.jpg')}
+                style={styles.image}
+              />
+            </View>
+            <Text style={styles.p}>ToDo....</Text>
+          </View>
+          <View style={styles.section}>
+            <Text style={styles.h3}>Nivå och Timer inställning</Text>
+            <Text style={styles.p}>
+              Med programmet stoppat kan man ändra nivån och timerhastighet.
+            </Text>
+            <Text style={styles.p}>
+              <Text style={styles.bold}>Nivån</Text> ändras genom att skiva in
+              13 och den önskade nivå (1 till 9). Till exempel, för att välja
+              nivå 4, tryck:
+            </Text>
+            <ButtonPicture combo="134" />
+            <Text style={styles.p}>
+              <Text style={styles.bold}>Timerhastighet</Text> ändras genom att
+              skriva in 77 och önskade nivån (1 till 9), 1 är långsam och 9
+              snabbt. Till exempel, för att välja nivå 4, tryck:
+            </Text>
+            <ButtonPicture combo="774" />
+          </View>
         </ScrollView>
         <View style={styles.panel}>
           <Button onPress={props.closePopup} title="Close" />
@@ -159,6 +175,9 @@ const styles = StyleSheet.create({
   appImageContainer: {
     flex: 1,
     height: 400,
+  },
+  section: {
+    margin: '5%',
   },
   h1: {
     color: '#19386b',
