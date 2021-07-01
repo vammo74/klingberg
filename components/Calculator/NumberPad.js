@@ -43,6 +43,11 @@ const NumberPad = props => {
     };
   }, []);
 
+  useEffect(() => {
+    pressOutLinkedHandler([IBBRef]);
+    pressOutLinkedHandler([IBTRef]);
+  }, [props.started]);
+
   return (
     <View style={styles.mainGrid}>
       <View style={styles.buttonRow}>

@@ -24,14 +24,16 @@ const PopUp = props => {
   const clearHandler = () => {
     Alert.alert(
       'Do you realy want to clear?',
-      'Do you realy want to clear?'[
-        ({
+      'Do you realy want to clear?',
+      [
+        {
           text: 'Cancel',
           onPress: () => console.log('Cancel Pressed'),
           style: 'cancel',
         },
-        {text: 'OK', onPress: () => console.log('OK Pressed')})
+        {text: 'OK', onPress: props.onClear},
       ],
+      {cancelable: false},
     );
   };
 

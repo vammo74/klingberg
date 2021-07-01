@@ -95,179 +95,180 @@ class Calculator extends Component {
   componentWillUnmount() {
     console.log('unmount Calculator');
   }
-  render() {
-    const _generateProducts = () => {
-      const newProducts = [];
-      for (let n = 2; n < 11; n++) {
-        for (let m = 2; m < 11; m++) {
-          if (
-            !newProducts.includes(n + ' × ' + m) &&
-            !newProducts.includes(m + ' × ' + n)
-          ) {
-            newProducts.push(n + ' × ' + m);
-          }
+
+  _generateProducts = () => {
+    const newProducts = [];
+    for (let n = 2; n < 11; n++) {
+      for (let m = 2; m < 11; m++) {
+        if (
+          !newProducts.includes(n + ' × ' + m) &&
+          !newProducts.includes(m + ' × ' + n)
+        ) {
+          newProducts.push(n + ' × ' + m);
         }
       }
-      return newProducts;
-    };
+    }
+    return newProducts;
+  };
 
-    const generateProduct = () => {
-      let productsArray = [...this.state.products];
-      if (productsArray.length < 1) {
-        productsArray = _generateProducts();
-        this.props.onIncrementLevel('up');
+  generateProduct = () => {
+    let productsArray = [...this.state.products];
+    if (productsArray.length < 1) {
+      productsArray = this._generateProducts();
+      this.props.onIncrementLevel('up');
+    }
+    if (productsArray.length >= 50) {
+      productsArray = this._generateProducts();
+
+      this.props.onIncrementLevel('down');
+    }
+    const randomIndex = Math.floor(Math.random() * productsArray.length);
+    const newProduct = productsArray.splice(randomIndex, 1);
+    this.setState({product: newProduct[0], products: [...productsArray]});
+  };
+
+  startHandler = () => {
+    this.setState({
+      digits: '',
+      started: true,
+      timerFlag: 'start',
+    });
+    this.generateProduct();
+    this.updateTracker();
+    this.screenRef.current.changeTextColor(true);
+  };
+
+  stopHandler = () => {
+    this.setState({
+      digits: '',
+      started: false,
+      timerFlag: 'stop',
+      products: [this.state.product, ...this.state.products],
+    });
+    this.screenRef.current.changeTextColor(false);
+    this.updateTracker();
+  };
+
+  checkProductHandler = answer => {
+    const numbers = this.state.product.split(' × ');
+    const result = parseInt(numbers[0], 10) * parseInt(numbers[1], 10);
+    if (parseInt(answer, 10) === result) {
+      this.setState({digits: ''});
+      this.screenRef.current.changeInputColor('green');
+      setTimeout(() => {
+        this.screenRef.current.changeInputColor('normal');
+      }, 250);
+      this.generateProduct();
+      this.updateTracker();
+      if (this.state.timerFlag === 'reset-on') {
+        this.setState({timerFlag: 'reset-off'});
+      } else {
+        this.setState({timerFlag: 'reset-on'});
       }
-      if (productsArray.length >= 50) {
-        productsArray = _generateProducts();
-
-        this.props.onIncrementLevel('down');
-      }
-      const randomIndex = Math.floor(Math.random() * productsArray.length);
-      const newProduct = productsArray.splice(randomIndex, 1);
-      this.setState({product: newProduct[0], products: [...productsArray]});
-    };
-
-    const startHandler = () => {
+    } else {
+      this.screenRef.current.changeInputColor('red');
       this.setState({
-        digits: '',
-        started: true,
-        timerFlag: 'start',
-      });
-      generateProduct();
-      updateTracker();
-      this.screenRef.current.changeTextColor(true);
-    };
-
-    const stopHandler = () => {
-      this.setState({
-        digits: '',
-        started: false,
-        timerFlag: 'stop',
         products: [this.state.product, ...this.state.products],
       });
-      this.screenRef.current.changeTextColor(false);
-    };
-
-    const checkProductHandler = answer => {
-      const numbers = this.state.product.split(' × ');
-      const result = parseInt(numbers[0], 10) * parseInt(numbers[1], 10);
-      if (parseInt(answer, 10) === result) {
-        this.setState({digits: ''});
-        this.screenRef.current.changeInputColor('green');
-        setTimeout(() => {
-          this.screenRef.current.changeInputColor('normal');
-        }, 250);
-        generateProduct();
-        updateTracker();
-        if (this.state.timerFlag === 'reset-on') {
-          this.setState({timerFlag: 'reset-off'});
-        } else {
-          this.setState({timerFlag: 'reset-on'});
-        }
+      if (this.state.products.length >= 50) {
+        this.generateProduct();
+      }
+      if (this.state.timerFlag === 'reset-on') {
+        this.setState({timerFlag: 'reset-off'});
       } else {
-        this.screenRef.current.changeInputColor('red');
-        this.setState({
-          products: [this.state.product, ...this.state.products],
-        });
-        if (this.state.products.length >= 50) {
-          generateProduct();
-          updateTracker();
-        }
-        if (this.state.timerFlag === 'reset-on') {
-          this.setState({timerFlag: 'reset-off'});
-        } else {
-          this.setState({timerFlag: 'reset-on'});
-        }
-        setTimeout(() => {
-          this.screenRef.current.changeInputColor('normal');
-          this.setState({digits: ''});
-        }, 250);
+        this.setState({timerFlag: 'reset-on'});
       }
-    };
-
-    const deleteHandler = () => {
-      if (this.state.digits.length > 0 && this.state.started) {
-        this.setState(state => {
-          return {digits: state.digits.slice(0, -1)};
-        });
-      } else {
+      this.updateTracker();
+      setTimeout(() => {
+        this.screenRef.current.changeInputColor('normal');
         this.setState({digits: ''});
-      }
-    };
+      }, 250);
+    }
+  };
 
-    const enterHandler = () => {
-      if (this.state.digits.length > 0 && this.state.started) {
-        checkProductHandler(this.state.digits);
-        this.setState({started: true});
-      }
-      if (
-        this.state.digits.length === 3 &&
-        !this.state.started &&
-        this.state.digits.slice(0, 2) === '13' &&
-        this.state.digits[2] !== '0'
-      ) {
-        this.props.onUpdateLevel(this.state.digits[2]);
-        let products = _generateProducts();
-        this.setState({
-          digits: '',
-          products: products,
-        });
-      }
-      if (
-        this.state.digits.length === 3 &&
-        !this.state.started &&
-        this.state.digits.slice(0, 2) === '77' &&
-        this.state.digits[2] !== '0'
-      ) {
-        let products = _generateProducts();
-        this.setState({
-          digits: '',
-          products: products,
-          timerRate: this.state.digits[2],
-        });
-      }
-      if (!this.state.started) {
-        this.setState({digits: ''});
-      }
-    };
+  deleteHandler = () => {
+    if (this.state.digits.length > 0 && this.state.started) {
+      this.setState(state => {
+        return {digits: state.digits.slice(0, -1)};
+      });
+    } else {
+      this.setState({digits: ''});
+    }
+  };
 
-    const enteredDigitsHandler = newDigit => {
-      if (this.state.digits.length < 3) {
-        this.setState(state => {
-          return {digits: state.digits + newDigit};
-        });
-      }
-    };
+  enterHandler = () => {
+    if (this.state.digits.length > 0 && this.state.started) {
+      this.checkProductHandler(this.state.digits);
+      this.setState({started: true});
+    }
+    if (
+      this.state.digits.length === 3 &&
+      !this.state.started &&
+      this.state.digits.slice(0, 2) === '13' &&
+      this.state.digits[2] !== '0'
+    ) {
+      this.props.onUpdateLevel(this.state.digits[2]);
+      let products = this._generateProducts();
+      this.setState({
+        digits: '',
+        products: products,
+      });
+    }
+    if (
+      this.state.digits.length === 3 &&
+      !this.state.started &&
+      this.state.digits.slice(0, 2) === '77' &&
+      this.state.digits[2] !== '0'
+    ) {
+      let products = this._generateProducts();
+      this.setState({
+        digits: '',
+        products: products,
+        timerRate: this.state.digits[2],
+      });
+    }
+    if (!this.state.started) {
+      this.setState({digits: ''});
+    }
+  };
 
-    const updateTracker = () => {
-      let barFillHeight =
-        Math.round((this.state.products.length / 50) * 85) + '%';
-      let warningLevel = this.state.products.length;
-      if (warningLevel === 44) {
-        this.scoreTrackerRef.current.changeTrackerColor('#4da6ff');
-      }
-      if (warningLevel === 47) {
-        this.scoreTrackerRef.current.changeTrackerColor('#cc99ff');
-      }
-      if (warningLevel === 48) {
-        this.scoreTrackerRef.current.changeTrackerColor('#ff9980');
-      }
-      if (warningLevel === 49) {
-        this.scoreTrackerRef.current.changeTrackerColor('#ff3333');
-      }
+  enteredDigitsHandler = newDigit => {
+    if (this.state.digits.length < 3) {
+      this.setState(state => {
+        return {digits: state.digits + newDigit};
+      });
+    }
+  };
 
-      this.scoreTrackerRef.current.changeHeight(barFillHeight.toString());
-    };
+  updateTracker = () => {
+    let barFillHeight =
+      Math.round((this.state.products.length / 50) * 85) + '%';
+    let warningLevel = this.state.products.length;
+    if (warningLevel === 44) {
+      this.scoreTrackerRef.current.changeTrackerColor('#4da6ff');
+    }
+    if (warningLevel === 47) {
+      this.scoreTrackerRef.current.changeTrackerColor('#cc99ff');
+    }
+    if (warningLevel === 48) {
+      this.scoreTrackerRef.current.changeTrackerColor('#ff9980');
+    }
+    if (warningLevel === 49) {
+      this.scoreTrackerRef.current.changeTrackerColor('#ff3333');
+    }
 
-    const outOfTimeHandler = () => {
-      if (this.state.levelAttempts) {
-        this.setState({levelAttempts: false});
-      } else {
-        this.setState({levelAttempts: true});
-        this.props.onIncrementLevel('down');
-      }
-    };
+    this.scoreTrackerRef.current.changeHeight(barFillHeight.toString());
+  };
 
+  outOfTimeHandler = () => {
+    if (this.state.levelAttempts) {
+      this.setState({levelAttempts: false});
+    } else {
+      this.setState({levelAttempts: true});
+      this.props.onIncrementLevel('down');
+    }
+  };
+  render() {
     return (
       <View className="calculator" style={styles.calculator}>
         <Screen
@@ -288,7 +289,7 @@ class Calculator extends Component {
                 style={styles.timer}
                 timerFlag={this.state.timerFlag}
                 level={this.props.level}
-                onOutOfTime={outOfTimeHandler}
+                onOutOfTime={this.outOfTimeHandler}
                 timerRate={this.state.timerRate}
               />
             </View>
@@ -299,12 +300,12 @@ class Calculator extends Component {
           <NumberPad
             style={styles.numberPad}
             digits={this.state.digits}
-            onEnteredDigit={enteredDigitsHandler}
-            onDelete={deleteHandler}
-            onEnter={enterHandler}
-            onStart={!this.state.started ? startHandler : stopHandler}
+            onEnteredDigit={this.enteredDigitsHandler}
+            onDelete={this.deleteHandler}
+            onEnter={this.enterHandler}
+            onStart={!this.state.started ? this.startHandler : this.stopHandler}
             started={this.state.started}
-            onOutOfTime={outOfTimeHandler}
+            onOutOfTime={this.outOfTimeHandler}
           />
         </View>
       </View>

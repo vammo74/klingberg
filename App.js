@@ -19,7 +19,7 @@ const MMKV = new MMKVStorage.Loader().initialize(); // Returns an MMKV Instance
 class App extends Component {
   constructor() {
     super();
-    this.state = {
+    this.initialState = {
       level: 4,
       popupped: true,
       savedStats: {
@@ -72,6 +72,7 @@ class App extends Component {
         ],
       },
     };
+    this.state = {...this.initialState};
     this.cleared = true;
     this.tableRef = createRef();
     this.calculatorRef = createRef();
@@ -101,6 +102,7 @@ class App extends Component {
 
   saveStats() {
     console.log(this.state);
+    console.log(this.cleared);
     if (!this.cleared) {
       console.log('saving');
       MMKV.setMap('savedStats', this.state);
@@ -110,6 +112,9 @@ class App extends Component {
   clearStats() {
     this.cleared = true;
     MMKV.clearStore();
+    this.setState({...this.initialState})
+    this.saveStats();
+    console.log('cleared');
   }
 
   _handleAppStateChange = nextAppState => {
@@ -121,11 +126,13 @@ class App extends Component {
 
   componentDidMount() {
     this.cleared = false;
-    AppState.addEventListener('change', this._handleAppStateChange);
+
     this.loadStats();
+    console.log('loaded');
     setTimeout(() => {
       this.tableRef.current.updateTableLevel(this.state.level);
     }, 50);
+    AppState.addEventListener('change', this._handleAppStateChange);
     console.log('mount app');
   }
 
@@ -136,41 +143,43 @@ class App extends Component {
     }
   }
 
+  passStatsHandler = newStats => {
+    this.setState(() => {
+      return {savedStats: newStats};
+    });
+    this.saveStats();
+  };
+
+  popupOpenHandler = () => {
+    console.log('popup on');
+    this.setState({popupped: true});
+  };
+
+  popupCloseHandler = () => {
+    console.log('popup off');
+    this.setState({popupped: false});
+  };
+
+  updateLevelHandler = newLevel => {
+    this.setState({level: newLevel});
+    this.tableRef.current.updateTableLevel(newLevel);
+  };
+
+  incrementLevelHandler = flag => {
+    let level = this.state.level;
+    if (flag === 'up') {
+      level = level + 1;
+    } else {
+      level = level - 1;
+    }
+    this.setState({level: level});
+    this.tableRef.current.updateTableLevel(level);
+    setTimeout(() => {
+      this.calculatorRef.current.stopHandler();
+    }, 50);
+  };
+
   render() {
-    const passStatsHandler = newStats => {
-      this.setState(() => {
-        return {savedStats: newStats};
-      });
-      this.saveStats();
-    };
-
-    const popupOpenHandler = () => {
-      console.log('popup on');
-      this.setState({popupped: true});
-    };
-
-    const popupCloseHandler = () => {
-      console.log('popup off');
-      this.setState({popupped: false});
-    };
-
-    const updateLevelHandler = newLevel => {
-      this.setState({level: newLevel});
-      this.tableRef.current.updateTableLevel(newLevel);
-    };
-    const incrementLevelHandler = flag => {
-      if (flag === 'up') {
-        this.setState(state => {
-          return {level: state.level + 1};
-        });
-      } else {
-        this.setState(state => {
-          return {level: state.level - 1};
-        });
-      }
-      this.tableRef.current.updateTableLevel(this.state.level);
-    };
-
     return (
       <SafeAreaView style={styles.container}>
         <Modal visible={true}>
@@ -178,12 +187,12 @@ class App extends Component {
             <Table level={this.state.level} ref={this.tableRef} />
             <Calculator
               ref={this.calculatorRef}
-              onIncrementLevel={incrementLevelHandler}
-              onUpdateLevel={updateLevelHandler}
+              onIncrementLevel={this.incrementLevelHandler}
+              onUpdateLevel={this.updateLevelHandler}
               level={this.state.level}
               savedStats={this.state.savedStats}
-              onGetInfo={popupOpenHandler}
-              onPassStats={passStatsHandler}
+              onGetInfo={this.popupOpenHandler}
+              onPassStats={this.passStatsHandler}
             />
           </View>
           <StatusBar style="auto" />
@@ -194,7 +203,7 @@ class App extends Component {
           visible={this.state.popupped}
           style={styles.popupModal}>
           <PopUp
-            closePopup={popupCloseHandler}
+            closePopup={this.popupCloseHandler}
             onClear={this.clearStats}
             onSave={this.saveStats}
           />

@@ -1,33 +1,33 @@
-import React, { Component } from "react";
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import React, {Component} from 'react';
+import {View, Text, StyleSheet, Pressable} from 'react-native';
 
 class IButtonTop extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      buttonMarginTop: "5%",
-      buttonMarginBottom: "-1%",
-      buttonMarginRight: "5%",
-      buttonColor: "#5f785d",
+      buttonMarginTop: '5%',
+      buttonMarginBottom: '-1%',
+      buttonMarginRight: '5%',
+      buttonColor: '#5f785d',
     };
     this.pressOutHandler = () => {
       if (this.props.started) {
         this.setState(() => {
           return {
-            buttonMarginTop: "5%",
-            buttonMarginRight: "5%",
-            buttonMarginBottom: "-1%",
-            buttonColor: "#664040",
-          }
+            buttonMarginTop: '5%',
+            buttonMarginRight: '5%',
+            buttonMarginBottom: '-1%',
+            buttonColor: '#664040',
+          };
         });
       } else {
         this.setState(() => {
           return {
-            buttonMarginTop: "5%",
-            buttonMarginRight: "5%",
-            buttonMarginBottom: "-1%",
-            buttonColor: "#5f785d",
-          }
+            buttonMarginTop: '5%',
+            buttonMarginRight: '5%',
+            buttonMarginBottom: '-1%',
+            buttonColor: '#5f785d',
+          };
         });
       }
     };
@@ -36,26 +36,26 @@ class IButtonTop extends Component {
         this.setState(() => {
           return {
             buttonMarginTop: 0,
-            buttonMarginBottom: "-1%",
+            buttonMarginBottom: '-1%',
             buttonMarginRight: 0,
-            buttonColor: "#664040",
-          }
+            buttonColor: '#664040',
+          };
         });
       } else {
         this.setState(() => {
           return {
             buttonMarginTop: 0,
-            buttonMarginBottom: "-1%",
+            buttonMarginBottom: '-1%',
             buttonMarginRight: 0,
-            buttonColor: "#4f654e",
-          }
+            buttonColor: '#4f654e',
+          };
         });
       }
     };
   }
 
   render() {
-    const { title, onPress, onPressIn, onPressOut, started } = this.props;
+    const {title, onPress, onPressIn, onPressOut, started} = this.props;
     const buttonStyles = StyleSheet.create({
       button: {
         backgroundColor: this.state.buttonColor,
@@ -82,8 +82,7 @@ class IButtonTop extends Component {
           onPressOut();
         }}
         style={styles.container}
-        started={started}
-      >
+        started={started}>
         <View style={buttonStyles.button}>
           <Text style={styles.text}>{title}</Text>
         </View>
@@ -94,31 +93,30 @@ class IButtonTop extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    borderStyle: "solid",
-    borderColor: "black",
+    borderStyle: 'solid',
+    borderColor: 'black',
     borderRightWidth: 1,
     borderLeftWidth: 1,
     borderTopWidth: 1,
     borderTopRightRadius: 5,
-    borderTopLeftRadius: 5,
-    backgroundColor: "#2d3a2c",
-    flex: 1,
-    marginTop: "1%",
-    marginRight: "1%",
-    marginLeft: "1%",
-    marginBottom: 0,
-    alignSelf: "center",
     borderTopLeftRadius: 9,
+    backgroundColor: '#2d3a2c',
+    flex: 1,
+    marginTop: '1%',
+    marginRight: '1%',
+    marginLeft: '1%',
+    marginBottom: 0,
+    alignSelf: 'center',
   },
   text: {
     transform: [
       {
-        rotate: "90deg",
+        rotate: '90deg',
       },
     ],
-    textAlign: "right",
+    textAlign: 'right',
     fontSize: 30,
-    color: "white",
+    color: 'white',
   },
 });
 

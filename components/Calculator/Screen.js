@@ -16,14 +16,12 @@ class Screen extends Component {
     this.setState(() => {
       return {textOn: bool};
     });
-    console.log(this.state.textOn);
   }
 
   changeInputColor(flag) {
     this.setState(() => {
       return {flashColor: flag};
     });
-    console.log(this.state.flashColor);
   }
 
   componentDidMount() {
